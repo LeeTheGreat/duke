@@ -1,0 +1,80 @@
+added Todo: 1
+added Todo: 2
+[/sd, /st, /ed, /et]
+added event: [E][ ] e3 (start 11/11/11 @ 1122, end 12/11/11 @ 1123)
+[/sd, /st, /ed, /et]
+added event: [E][ ] e4 (start 11/11/11 @ 1122, end 12/11/11 @ 1123)
+[/sd, /st, /ed, /et]
+added event: [E][ ] e5 (start 11/11/11 @ 1122, end 12/11/11 @ 1123)
+[/sd, /st, /ed, /et]
+added event: [E][ ] e6 (start 11/11/11 @ 1122, end 12/11/11 @ 1123)
+[/sd, /st, /ed, /et]
+event syntax invalid. usage example: event <desc> /sd <date> /st <time> /ed <time> /et <time>
+[/sd, /st, /ed, /et]
+event syntax invalid. usage example: event <desc> /sd <date> /st <time> /ed <time> /et <time>
+[/sd, /st, /ed, /et]
+event syntax invalid. usage example: event <desc> /sd <date> /st <time> /ed <time> /et <time>
+[/sd, /st, /ed, /et]
+event syntax invalid. usage example: event <desc> /sd <date> /st <time> /ed <time> /et <time>
+[/sd, /st, /ed, /et]
+event syntax invalid. usage example: event <desc> /sd <date> /st <time> /ed <time> /et <time>
+[/sd, /st, /ed, /et]
+event syntax invalid. usage example: event <desc> /sd <date> /st <time> /ed <time> /et <time>
+[/sd, /st, /ed, /et]
+event syntax invalid. usage example: event <desc> /sd <date> /st <time> /ed <time> /et <time>
+[/ed, /et]
+added deadline: [D][ ] d7 (end 11/11/11 @ 1122)
+[/ed, /et]
+added deadline: [D][ ] d8 (end 11/11/11 @ 1122)
+[/ed, /et]
+deadline syntax invalid. usage example: deadline <desc> /ed <date> /et <time>
+[/ed, /et]
+deadline syntax invalid. usage example: deadline <desc> /ed <date> /et <time>
+[/ed, /et]
+deadline syntax invalid. usage example: deadline <desc> /ed <date> /et <time>
+[/ed, /et]
+deadline syntax invalid. usage example: deadline <desc> /ed <date> /et <time>
+[/ed, /et]
+deadline syntax invalid. usage example: deadline <desc> /ed <date> /et <time>
+listing tasks
+1. [T][ ] 1
+2. [T][ ] 2
+3. [E][ ] e3 (start 11/11/11 @ 1122, end 12/11/11 @ 1123)
+4. [E][ ] e4 (start 11/11/11 @ 1122, end 12/11/11 @ 1123)
+5. [E][ ] e5 (start 11/11/11 @ 1122, end 12/11/11 @ 1123)
+6. [E][ ] e6 (start 11/11/11 @ 1122, end 12/11/11 @ 1123)
+7. [D][ ] d7 (end 11/11/11 @ 1122)
+8. [D][ ] d8 (end 11/11/11 @ 1122)
+task 1 done: [T][X] 1
+task 2 done: [T][X] 2
+task 3 done: [E][X] e3 (start 11/11/11 @ 1122, end 12/11/11 @ 1123)
+task 8 done: [D][X] d8 (end 11/11/11 @ 1122)
+Mark/Unmark number entered is invalid. Ensure number entered is in the numbered list
+listing tasks
+1. [T][X] 1
+2. [T][X] 2
+3. [E][X] e3 (start 11/11/11 @ 1122, end 12/11/11 @ 1123)
+4. [E][ ] e4 (start 11/11/11 @ 1122, end 12/11/11 @ 1123)
+5. [E][ ] e5 (start 11/11/11 @ 1122, end 12/11/11 @ 1123)
+6. [E][ ] e6 (start 11/11/11 @ 1122, end 12/11/11 @ 1123)
+7. [D][ ] d7 (end 11/11/11 @ 1122)
+8. [D][X] d8 (end 11/11/11 @ 1122)
+task 2 done: [T][X] 2
+listing tasks
+1. [T][X] 1
+2. [T][X] 2
+3. [E][X] e3 (start 11/11/11 @ 1122, end 12/11/11 @ 1123)
+4. [E][ ] e4 (start 11/11/11 @ 1122, end 12/11/11 @ 1123)
+5. [E][ ] e5 (start 11/11/11 @ 1122, end 12/11/11 @ 1123)
+6. [E][ ] e6 (start 11/11/11 @ 1122, end 12/11/11 @ 1123)
+7. [D][ ] d7 (end 11/11/11 @ 1122)
+8. [D][X] d8 (end 11/11/11 @ 1122)
+task 1 deleted: [T][ ] 1
+task 2 deleted: [E][ ] e3 (start 11/11/11 @ 1122, end 12/11/11 @ 1123)
+listing tasks
+1. [T][X] 2
+2. [E][ ] e4 (start 11/11/11 @ 1122, end 12/11/11 @ 1123)
+3. [E][ ] e5 (start 11/11/11 @ 1122, end 12/11/11 @ 1123)
+4. [E][ ] e6 (start 11/11/11 @ 1122, end 12/11/11 @ 1123)
+5. [D][ ] d7 (end 11/11/11 @ 1122)
+6. [D][X] d8 (end 11/11/11 @ 1122)
