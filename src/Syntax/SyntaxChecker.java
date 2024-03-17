@@ -1,6 +1,6 @@
 package Syntax;
 
-import Exception.*;
+import CustomException.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,7 +15,7 @@ public class SyntaxChecker {
     }
 
     public void checkSyntax() throws BigChungusException.InvalidListSyntaxException
-            , BigChungusException.InvalidMarkSyntaxException
+            , BigChungusException.InvalidMarkOrDeleteSyntaxException
             , BigChungusException.InvalidTodoSyntaxException
             , BigChungusException.InvalidDeadlineSyntaxException
             , BigChungusException.InvalidEventSyntaxException
@@ -47,9 +47,9 @@ public class SyntaxChecker {
         }
     }
 
-    protected void isValidTaskNumSyntax() throws BigChungusException.InvalidMarkSyntaxException {
+    protected void isValidTaskNumSyntax() throws BigChungusException.InvalidMarkOrDeleteSyntaxException {
         if(getTokens().size() != 2){
-            throw new BigChungusException.InvalidMarkSyntaxException();
+            throw new BigChungusException.InvalidMarkOrDeleteSyntaxException();
         }
     }
 

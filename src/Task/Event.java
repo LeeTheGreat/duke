@@ -1,106 +1,51 @@
 package Task;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Hashtable;
 
-import Exception.BigChungusException;
 import Syntax.SyntaxUtil;
+import CustomException.BigChungusException;
 
-public class Event extends Task {
-    private LocalDate startDate;
-    private LocalTime startTime;
-    private LocalDate endDate;
-    private LocalTime endTime;
-
+public class Event extends TaskDateTime {
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
-    public Event(Hashtable<String,String> fields) throws BigChungusException.InvalidDateFormat, BigChungusException.InvalidTimeFormat {
+    public Event(Hashtable<String,String> fields, DateTimeFormatter dtf) throws
+            BigChungusException.InvalidDateTimeFormatException
+            , BigChungusException.StartDateTimeAfterEndDateTimeException
+            , BigChungusException.EndDateTimeBeforeStartDateTimeException {
         super(fields);
-        this.setStartDate(fields.get(SyntaxUtil.startDateKeyword));
-        this.setStartTime(fields.get(SyntaxUtil.startTimeKeyword));
-        this.setEndDate(fields.get(SyntaxUtil.endDateKeyword));
-        this.setEndTime(fields.get(SyntaxUtil.endTimeKeyword));
-        //this.setEndDateTime(fields.get(SyntaxUtil.endDateTimeKeyword));
+        this.setStartDateTime(fields.get(SyntaxUtil.startDateTimeKeyword), dtf);
+        this.setEndDateTime(fields.get(SyntaxUtil.endDateTimeKeyword), dtf);
     }
 
-    @Override
-    public String print(){
-        String info = String.format("start %s @ %s, end %s @ %s", getStartDate(), getStartTime(), getEndDate(), getEndTime());
+    public String print(DateTimeFormatter dtf){
+        String info = String.format("start %s, end %s", this.getStartDateTime().format(dtf), this.getEndDateTime().format(dtf));
         return String.format("[E]%s (%s)", super.print(), info);
     }
 
-    @Override
-    public String toString(){
-        String[] info = {"event", super.getDescription(), String.valueOf(super.getDone()), String.valueOf(this.getStartDate()), String.valueOf(this.getStartTime()), String.valueOf(this.getEndDate()), String.valueOf(this.getEndTime())};
-        return String.join(";;", info);
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(String input) throws BigChungusException.InvalidDateFormat {
-        try {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(SyntaxUtil.dateFormat);
-            this.startDate = LocalDate.parse(input, dateFormatter);
-        } catch (DateTimeParseException e) {
-            throw new BigChungusException.InvalidDateFormat(input);
-        }
-    }
-
-    public LocalTime getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(String input) throws BigChungusException.InvalidTimeFormat {
-        try {
-            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(SyntaxUtil.timeFormat);
-            this.startTime = LocalTime.parse(input, timeFormatter);
-        } catch (DateTimeParseException e) {
-            throw new BigChungusException.InvalidTimeFormat(input);
-        }
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String input) throws BigChungusException.InvalidDateFormat {
-        try {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(SyntaxUtil.dateFormat);
-            this.endDate = LocalDate.parse(input, dateFormatter);
-        } catch (DateTimeParseException e) {
-            throw new BigChungusException.InvalidDateFormat(input);
-        }
-    }
-
-    public LocalTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(String input) throws BigChungusException.InvalidTimeFormat {
-        try {
-            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(SyntaxUtil.timeFormat);
-            this.endTime = LocalTime.parse(input, timeFormatter);
-        } catch (DateTimeParseException e) {
-            throw new BigChungusException.InvalidTimeFormat(input);
-        }
+    public String print(){
+        String info = String.format("start %s, end %s", this.getStartDateTime(), this.getEndDateTime());
+        return String.format("[E]%s (%s)", super.print(), info);
     }
 
     public LocalDateTime getStartDateTime() {
         return startDateTime;
     }
 
-    public void setStartDateTime(String input) throws BigChungusException.InvalidDateTimeFormat {
+    public void setStartDateTime(String input, DateTimeFormatter dtf) throws
+            BigChungusException.InvalidDateTimeFormatException
+            , BigChungusException.StartDateTimeAfterEndDateTimeException
+            , BigChungusException.EndDateTimeBeforeStartDateTimeException
+    {
         try {
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(SyntaxUtil.dateTimeFormat);
-            this.startDateTime = LocalDateTime.parse(input, dateTimeFormatter);
+            LocalDateTime sdt = LocalDateTime.parse(input, dtf);
+            super.checkEndDateAfterStartDate(sdt, this.getEndDateTime(), dtf);
+            super.checkStartDateBeforeEndDate(sdt, this.getEndDateTime(), dtf);
+            this.startDateTime = sdt;
         } catch (DateTimeParseException e) {
-            throw new BigChungusException.InvalidDateTimeFormat(input);
+            throw new BigChungusException.InvalidDateTimeFormatException(input);
         }
     }
 
@@ -108,12 +53,18 @@ public class Event extends Task {
         return endDateTime;
     }
 
-    public void setEndDateTime(String input) throws BigChungusException.InvalidDateTimeFormat {
+    public void setEndDateTime(String input, DateTimeFormatter dtf) throws
+            BigChungusException.InvalidDateTimeFormatException
+            , BigChungusException.StartDateTimeAfterEndDateTimeException
+            , BigChungusException.EndDateTimeBeforeStartDateTimeException
+    {
         try {
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(SyntaxUtil.dateTimeFormat);
-            this.endDateTime = LocalDateTime.parse(input, dateTimeFormatter);
+            LocalDateTime edt = LocalDateTime.parse(input, dtf);
+            super.checkEndDateAfterStartDate(this.getStartDateTime(), edt, dtf);
+            super.checkStartDateBeforeEndDate(this.getStartDateTime(), edt, dtf);
+            this.endDateTime = edt;
         } catch (DateTimeParseException e) {
-            throw new BigChungusException.InvalidDateTimeFormat(input);
+            throw new BigChungusException.InvalidDateTimeFormatException(input);
         }
     }
 }

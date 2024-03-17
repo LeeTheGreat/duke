@@ -1,24 +1,17 @@
 todo t1
-todo t2
-event e1 /sd 11-01-2024 /ed 11-02-2024 /st 1122 /et 1123
-event e2 /sd 12-02-2024 /ed 12-03-2024 /st 2211 /et 2342
-event e3 /sd 13-03-2020 /ed 13-03-2022 /st 2211 /et 2342
-event e4 /et 1123 /sd 11/11/11 /ed 12/11/11 /st 1122
-event ewrong1 /sd 11/11/11 /ed 12/11/11 /st 1122
-event ewrong2 /et 1123 /ed 12/11/11 /st 1122
-event ewrong3 /et 1123 /sd 11/11/11 /st 1122
-event ewrong4 /et 1123 /sd 11/11/11 /ed 12/11/11
-event ewrong5 /et 1123 /sd 11/11/11 /ed 12/11/11 aabb
-event ewrong6 /et 1123 bbaa /sd 11/11/11 bbaa /ed 12/11/11 aabb
-event ewrong7 /sd 11/11/11 /ed 12/11/11 /st 1122 /et 1122 aabb
-deadline d7 /ed 11/11/11 /et 1122
-deadline d8 /et 1122 /ed 11/11/11
-deadline dwrong1 /et 1122 /ed 11/11/11 aabb
-deadline dwrong2 /et 1122 /ed 
-deadline dwrong3 /ed 11/11/11 /et
-deadline dwrong4 /et 1122 bbaa /ed 11/11/11 bbaa
-deadline dwrong5 /et 1122
-deadline dwrong6 /ed 1122
+todo this is t2
+event e1 /sdt 10-01-2024 1122 /edt 22-05-2024 1123
+event e2 /sdt 25-03-2024 2211 /edt 27-03-2024 2342
+event e3 /sdt 12-02-2024 2211 /edt 12-03-2024 2342
+event e4 edt lt today /sdt 01-01-2024 2211 /edt 02-01-2024 0001
+event e5 extra text /sdt 01-01-2024 2211 /edt 02-01-2024 0001 aaa
+event ewrong1_edt_sdt_order /edt 12-03-2024 2342 /sdt 12-02-2024 2211
+event ewrong2_sdt_gt_edt /sdt 13-02-2024 2211 /edt 12-02-2024 2211
+event ewrong3_edt_lt_sdt /sdt 13-02-2024 2211 /edt 12-02-2024 0001
+event ewrong_4_syntax /sdt aa 12-02-2024 2211 /edt bb 12-03-2024 2342 cc
+deadline d1 /edt 12-12-2024 2211
+deadline d2_edt_lt_today /edt 01-01-2024 2211
+
 list
 mark 1
 mark 2

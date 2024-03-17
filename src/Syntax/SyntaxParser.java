@@ -1,71 +1,84 @@
 package Syntax;
 
+import Action.MarkAction;
+import CustomException.BigChungusException;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 
 public class SyntaxParser {
-    protected List<String> tokens;
 
-    public SyntaxParser(String input) {
-        tokens = new ArrayList<String>(Arrays.asList(input.split(" ")));
-    }
-
-    public Hashtable<String, String> Parse(){
+    public static Hashtable<String, String> Parse(String input) throws
+            BigChungusException.InvalidListSyntaxException
+            , BigChungusException.InvalidTodoSyntaxException
+            , BigChungusException.InvalidDeadlineSyntaxException
+            , BigChungusException.InvalidEventSyntaxException
+            , BigChungusException.InvalidActionException
+            , BigChungusException.InvalidMarkOrDeleteSyntaxException
+    {
+        List<String> tokens = new ArrayList<String>(Arrays.asList(input.split(" ")));
         Hashtable<String,String> fields = new Hashtable<>();
         String action = tokens.get(0);
         fields.put("action", action);
         if(action.equals("list")){
-            String desc = String.join(" ", tokens.subList(1, tokens.size()));
-            fields.put("desc", desc);
         }
         else if(action.equals("unmark") || action.equals("mark") || action.equals("delete")){
-            String num = tokens.get(1);
-            fields.put("num", num);
+            try {
+                String num = tokens.get(1);
+                fields.put(MarkAction.numKey, num);
+            }
+            catch (IndexOutOfBoundsException e){
+                throw new BigChungusException.InvalidMarkOrDeleteSyntaxException();
+            }
         }
         else if(action.equals("todo")){
-            String desc = String.join(" ", tokens.subList(1, tokens.size()));
-            fields.put("desc", desc);
+            try {
+                String desc = String.join(" ", tokens.subList(1, tokens.size()));
+                fields.put(SyntaxUtil.description, desc);
+            }
+            catch (IndexOutOfBoundsException e){
+                throw new BigChungusException.InvalidTodoSyntaxException();
+            }
         }
         else if(action.equals("deadline")){
-            int edIndex = tokens.indexOf(SyntaxUtil.endDateKeyword);
-            int etIndex = tokens.indexOf(SyntaxUtil.endTimeKeyword);
-            int firstKeywordIndex = Math.min(edIndex, etIndex);
-            String desc = String.join(" ", tokens.subList(1, firstKeywordIndex));
-            String ed = tokens.get(edIndex + 1);
-            String et = tokens.get(etIndex + 1);
-            fields.put("desc", desc);
-            fields.put("/ed", ed);
-            fields.put("/et", et);
+            String edt = "";
+            try {
+                int edtIndex = tokens.lastIndexOf(SyntaxUtil.endDateTimeKeyword);
+                String desc = String.join(" ", tokens.subList(1, edtIndex));
+                edt = String.join(" ", tokens.subList(edtIndex + 1, tokens.size()));
+                fields.put(SyntaxUtil.description, desc);
+                fields.put(SyntaxUtil.endDateTimeKeyword, edt);
+            }
+            catch (IllegalArgumentException | IndexOutOfBoundsException e){
+                throw new BigChungusException.InvalidDeadlineSyntaxException();
+            }
+
         }
         else if(action.equals("event")){
-            int sdIndex = this.getTokens().indexOf(SyntaxUtil.startDateKeyword);
-            int stIndex = this.getTokens().indexOf(SyntaxUtil.startTimeKeyword);
-            int edIndex = this.getTokens().indexOf(SyntaxUtil.endDateKeyword);
-            int etIndex = this.getTokens().indexOf(SyntaxUtil.endTimeKeyword);
-            int firstKeywordIndex = Math.min(sdIndex, stIndex);
-            firstKeywordIndex = Math.min(firstKeywordIndex, edIndex);
-            firstKeywordIndex = Math.min(firstKeywordIndex, etIndex);
-            String desc = String.join(" ", tokens.subList(1, firstKeywordIndex));
-            String sd = tokens.get(sdIndex + 1);
-            String st = tokens.get(stIndex + 1);
-            String ed = tokens.get(edIndex + 1);
-            String et = tokens.get(etIndex + 1);
-            fields.put("desc", desc);
-            fields.put("/sd", sd);
-            fields.put("/st", st);
-            fields.put("/ed", ed);
-            fields.put("/et", et);
+            String sdt = "";
+            String edt = "";
+            try {
+                int sdtIndex = tokens.lastIndexOf(SyntaxUtil.startDateTimeKeyword);
+                int edtIndex = tokens.lastIndexOf(SyntaxUtil.endDateTimeKeyword);
+                String desc = String.join(" ", tokens.subList(1, sdtIndex));
+                sdt = String.join(" ", tokens.subList(sdtIndex + 1, edtIndex));
+                edt = String.join(" ", tokens.subList(edtIndex + 1, tokens.size()));
+                fields.put(SyntaxUtil.description, desc);
+                fields.put(SyntaxUtil.startDateTimeKeyword, sdt);
+                fields.put(SyntaxUtil.endDateTimeKeyword, edt);
+            }
+            catch (IllegalArgumentException | IndexOutOfBoundsException e){
+                throw new BigChungusException.InvalidEventSyntaxException();
+            }
+        }
+        else{
+            throw new BigChungusException.InvalidActionException();
         }
         return fields;
-    }
-
-    public List<String> getTokens() {
-        return tokens;
-    }
-
-    public void setTokens(List<String> tokens) {
-        this.tokens = tokens;
     }
 }

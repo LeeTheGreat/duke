@@ -1,9 +1,12 @@
 package Action;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Hashtable;
 import java.util.List;
+
+import Syntax.SyntaxUtil;
 import Task.*;
-import Exception.BigChungusException;
+import CustomException.BigChungusException;
 
 public class DeadlineAction implements IExecutable {
 
@@ -12,8 +15,9 @@ public class DeadlineAction implements IExecutable {
     }
 
     @Override
-    public void execute(Hashtable<String, String> fields, List<Task> tasks) throws BigChungusException.InvalidTimeFormat, BigChungusException.InvalidDateFormat {
-        Deadline deadline = new Deadline(fields);
+    public void execute(Hashtable<String, String> fields, List<Task> tasks) throws BigChungusException.InvalidDateTimeFormatException {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxUtil.dateTimeFormat);
+        Deadline deadline = new Deadline(fields, dtf);
         tasks.add(deadline);
         System.out.println("added deadline: " + deadline.print());
     }

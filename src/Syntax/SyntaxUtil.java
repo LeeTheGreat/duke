@@ -11,11 +11,10 @@ public class SyntaxUtil {
 
     public static String startDateTimeKeyword = "/sdt";
     public static String endDateTimeKeyword = "/edt";
-
-    public static String dateFormat = "dd-MM-yyyy";
-    public static String timeFormat = "HHmm";
-
     public static String dateTimeFormat = "dd-MM-yyyy HHmm";
+
+    public static String description = "desc";
+    public static String isDone = "isDone";
 
     public static String[] getDeadlineKeywords(){
         return new String[]{endDateKeyword, endTimeKeyword};
