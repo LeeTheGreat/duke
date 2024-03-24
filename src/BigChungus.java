@@ -1,10 +1,7 @@
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import java.util.Hashtable;
+import java.util.ArrayList;
 
 import Storage.FileStorage;
-import Syntax.*;
 import Task.*;
 import Action.*;
 
@@ -37,32 +34,13 @@ public class BigChungus {
                 ⠀⠀⠀⡐⠈⠁⠈⠛⣛⠿⠟⠑⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
                 ⠀⠀⠉⠑⠒⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀""";
         //System.out.println(logo);
-        System.out.println("Hello. I'm BigChungus");
         try {
-            Scanner in = new Scanner(System.in);
-            FileStorage storage = new FileStorage();
+            UI ui = new UI();
+            ActionManager actionManager = new ActionManager();
             List<Task> tasks = new ArrayList<>();
+            FileStorage storage = new FileStorage();
             tasks = storage.Load();
-            while (true) {
-                try {
-                    String input = in.nextLine();
-                    input = input.trim().toLowerCase();
-                    if (input.isEmpty()) {
-                        continue;
-                    }
-                    else if (input.equals("bye")) {
-                        System.out.println("gooda bye");
-                        break;
-                    }
-                    else {
-                        Hashtable<String, String> fields = SyntaxParser.Parse(input);
-                        ActionManager actionManager = new ActionManager();
-                        actionManager.executeAction(fields, tasks);
-                    }
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-            }
+            ui.Start(storage, tasks, actionManager);
         }
         catch (Exception e){
             System.out.println(e.getMessage());

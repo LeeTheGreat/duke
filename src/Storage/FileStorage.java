@@ -88,7 +88,7 @@ public class FileStorage implements IStorable {
             }
         }
         scanner.close();
-        System.out.printf("loaded tasks from: %s", this.fullPath);
+        System.out.printf("loaded tasks from: %s%n", this.fullPath);
         return tasks;
     }
 
