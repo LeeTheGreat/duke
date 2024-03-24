@@ -42,7 +42,7 @@ public class BigChungus {
             Scanner in = new Scanner(System.in);
             FileStorage storage = new FileStorage();
             List<Task> tasks = new ArrayList<>();
-            //tasks = storage.Load();
+            tasks = storage.Load();
             while (true) {
                 try {
                     String input = in.nextLine();

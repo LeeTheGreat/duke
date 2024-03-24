@@ -1,5 +1,7 @@
 package Task;
 
+import Syntax.SyntaxUtil;
+
 import java.util.Hashtable;
 
 public abstract class Task {
@@ -7,10 +9,10 @@ public abstract class Task {
     private String description;
 
     protected Task(Hashtable<String,String> fields) {
-        if(fields.contains("done")){
-            this.setDone(Boolean.parseBoolean(fields.get("done")));
+        if(fields.containsKey(SyntaxUtil.isDone)){
+            this.setDone(Boolean.parseBoolean(fields.get(SyntaxUtil.isDone)));
         }
-        this.setDescription(fields.get("desc"));
+        this.setDescription(fields.get(SyntaxUtil.description));
     }
 
     public boolean getDone() {

@@ -1,8 +1,8 @@
-{"attributes":"{\"isDone\":true,\"description\":\"1\"}","type":"todo"}
-{"attributes":"{\"isDone\":false,\"description\":\"2\"}","type":"todo"}
-{"attributes":"{\"startDate\":\"10-11-2024\",\"startTime\":\"1122\",\"endDate\":\"11-11-2024\",\"endTime\":\"1123\",\"isDone\":false,\"description\":\"e3\"}","type":"event"}
-{"attributes":"{\"startDate\":\"11-12-2024\",\"startTime\":\"2211\",\"endDate\":\"13-12-2024\",\"endTime\":\"1130\",\"isDone\":false,\"description\":\"e4\"}","type":"event"}
-{"attributes":"{\"startDate\":\"01-01-2024\",\"startTime\":\"1430\",\"endDate\":\"01-02-2024\",\"endTime\":\"1430\",\"isDone\":false,\"description\":\"e5\"}","type":"event"}
-{"attributes":"{\"startDate\":\"22-12-2024\",\"startTime\":\"0500\",\"endDate\":\"24-12-2024\",\"endTime\":\"1700\",\"isDone\":false,\"description\":\"e6\"}","type":"event"}
-{"attributes":"{\"endDate\":\"26-05-2024\",\"endTime\":\"1800\",\"isDone\":false,\"description\":\"d7\"}","type":"deadline"}
-{"attributes":"{\"endDate\":\"27-06-2024\",\"endTime\":\"1900\",\"isDone\":false,\"description\":\"d8\"}","type":"deadline"}
+{"type":"todo","isDone":"true","desc":"t1"}
+{"type":"todo","isDone":"true","desc":"this is t2"}
+{"/edt":"22-05-2024 1123","/sdt":"10-01-2024 1122","type":"event","isDone":"false","desc":"e1"}
+{"/edt":"27-03-2024 2342","/sdt":"25-03-2024 2211","type":"event","isDone":"false","desc":"e2"}
+{"/edt":"12-03-2024 2342","/sdt":"12-02-2024 2211","type":"event","isDone":"false","desc":"e3"}
+{"/edt":"02-01-2024 0001","/sdt":"01-01-2024 2211","type":"event","isDone":"false","desc":"e4 edt lt today"}
+{"/edt":"12-12-2024 2211","type":"deadline","isDone":"false","desc":"d1"}
+{"/edt":"01-01-2024 2211","type":"deadline","isDone":"false","desc":"d2_edt_lt_today"}

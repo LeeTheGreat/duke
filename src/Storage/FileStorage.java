@@ -11,7 +11,7 @@ import java.util.*;
 import Task.*;
 import CustomException.BigChungusException;
 
-public class FileStorage implements ISavable, ILoadable {
+public class FileStorage implements IStorable {
     
     public String fileName = "bigchungus.txt";
     public String folder = System.getProperty("user.dir") + File.separator + "data";
@@ -27,25 +27,21 @@ public class FileStorage implements ISavable, ILoadable {
             System.out.printf("failed to create directory %s%n", folder);
         }
 
-        //Gson gson = new Gson();
-
         FileWriter writer = new FileWriter(this.fullPath);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxUtil.dateTimeFormat);
         for(Task task : tasks) {
-            //String taskAttrib = gson.toJson(task);
             JSONObject taskJson = new JSONObject();
-            String taskType = "";
-            taskJson.put(SyntaxUtil.isDone, task.getDone());
+            taskJson.put(SyntaxUtil.isDone, String.valueOf(task.getDone()));
             taskJson.put(SyntaxUtil.description, task.getDescription());
             if(task instanceof Todo){
                 taskJson.put("type", "todo");
             }
             else if (task instanceof Deadline){
                 taskJson.put("type", "deadline");
-                taskJson.put(SyntaxUtil.startDateTimeKeyword, ((Deadline) task).getEndDateTime());
+                taskJson.put(SyntaxUtil.endDateTimeKeyword, ((Deadline) task).getEndDateTime().format(dtf));
             }
             else if(task instanceof Event){
-                taskType = "event";
+                taskJson.put("type", "event");
                 taskJson.put(SyntaxUtil.startDateTimeKeyword, ((Event) task).getStartDateTime().format(dtf));
                 taskJson.put(SyntaxUtil.endDateTimeKeyword, ((Event) task).getEndDateTime().format(dtf));
             }
@@ -92,6 +88,7 @@ public class FileStorage implements ISavable, ILoadable {
             }
         }
         scanner.close();
+        System.out.printf("loaded tasks from: %s", this.fullPath);
         return tasks;
     }
 

@@ -14,8 +14,7 @@ import java.util.List;
 public class SyntaxParser {
 
     public static Hashtable<String, String> Parse(String input) throws
-            BigChungusException.InvalidListSyntaxException
-            , BigChungusException.InvalidTodoSyntaxException
+            BigChungusException.InvalidTodoSyntaxException
             , BigChungusException.InvalidDeadlineSyntaxException
             , BigChungusException.InvalidEventSyntaxException
             , BigChungusException.InvalidActionException
@@ -75,6 +74,8 @@ public class SyntaxParser {
             catch (IllegalArgumentException | IndexOutOfBoundsException e){
                 throw new BigChungusException.InvalidEventSyntaxException();
             }
+        }
+        else if(action.equals("save")){
         }
         else{
             throw new BigChungusException.InvalidActionException();

@@ -20,19 +20,20 @@ public class SyntaxChecker {
             , BigChungusException.InvalidDeadlineSyntaxException
             , BigChungusException.InvalidEventSyntaxException
             , BigChungusException.InvalidActionException {
-        if(tokens.get(0).equals("list")){
+        String action = tokens.get(0);
+        if(action.equals("list")){
             isValidListSyntax();
         }
-        else if(tokens.get(0).equals("mark") || tokens.get(0).equals("unmark")){
+        else if(action.equals("mark") || action.equals("unmark")){
             isValidTaskNumSyntax();
         }
-        else if(tokens.get(0).equals("todo")){
+        else if(action.equals("todo")){
             isValidTodoSyntax();
         }
-        else if(tokens.get(0).equals("deadline")){
+        else if(action.equals("deadline")){
             isValidDeadlineSyntax();
         }
-        else if(tokens.get(0).equals("event")){
+        else if(action.equals("event")){
             isValidEventSyntax();
         }
         else{
