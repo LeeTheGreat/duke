@@ -1,0 +1,19 @@
+
+plugins {
+    id 'java'
+    id 'application'
+}
+
+sourceSets.main.java.srcDirs = ['src']
+
+application {
+    mainClass.set("BigChungus")
+}
+
+dependencies{
+    implementation group: 'org.json', name: 'json', version: '20240303'
+}
+
+repositories {
+    mavenCentral()
+}
