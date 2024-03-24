@@ -1,6 +1,9 @@
+/**
+ *
+ */
 package Storage;
 
-import Syntax.SyntaxUtil;
+import Syntax.SyntaxKeyword;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -11,6 +14,9 @@ import java.util.*;
 import Task.*;
 import CustomException.BigChungusException;
 
+/**
+ * FileStorage is a class to provide saving and loading of the tasks from and to a text file in JSON format
+ */
 public class FileStorage implements IStorable {
     
     public String fileName = "bigchungus.txt";
@@ -18,6 +24,11 @@ public class FileStorage implements IStorable {
     public String fullPath = this.folder + File.separator + this.fileName;
     public FileStorage(){  }
 
+    /**
+     * Save the tasks to the file in the data folder of the program directory
+     * @param tasks list of tasks
+     * @throws IOException
+     */
     public void Save(List<Task> tasks) throws IOException {
         File f = new File(fullPath);
         try{
@@ -28,22 +39,22 @@ public class FileStorage implements IStorable {
         }
 
         FileWriter writer = new FileWriter(this.fullPath);
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxUtil.dateTimeFormat);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxKeyword.dateTimeFormat);
         for(Task task : tasks) {
             JSONObject taskJson = new JSONObject();
-            taskJson.put(SyntaxUtil.isDone, String.valueOf(task.getDone()));
-            taskJson.put(SyntaxUtil.description, task.getDescription());
+            taskJson.put(SyntaxKeyword.isDone, String.valueOf(task.getDone()));
+            taskJson.put(SyntaxKeyword.description, task.getDescription());
             if(task instanceof Todo){
                 taskJson.put("type", "todo");
             }
             else if (task instanceof Deadline){
                 taskJson.put("type", "deadline");
-                taskJson.put(SyntaxUtil.endDateTimeKeyword, ((Deadline) task).getEndDateTime().format(dtf));
+                taskJson.put(SyntaxKeyword.endDateTimeKeyword, ((Deadline) task).getEndDateTime().format(dtf));
             }
             else if(task instanceof Event){
                 taskJson.put("type", "event");
-                taskJson.put(SyntaxUtil.startDateTimeKeyword, ((Event) task).getStartDateTime().format(dtf));
-                taskJson.put(SyntaxUtil.endDateTimeKeyword, ((Event) task).getEndDateTime().format(dtf));
+                taskJson.put(SyntaxKeyword.startDateTimeKeyword, ((Event) task).getStartDateTime().format(dtf));
+                taskJson.put(SyntaxKeyword.endDateTimeKeyword, ((Event) task).getEndDateTime().format(dtf));
             }
             writer.append(String.format("%s%n", taskJson.toString()));
         }
@@ -52,6 +63,15 @@ public class FileStorage implements IStorable {
         writer.close();
     }
 
+    /**
+     * Load the saved tasks from the file in the data folder of the program directory
+     * @return List<Task></Task>
+     * @throws IOException for reading from the save file
+     * @throws BigChungusException.JsonTypeKeyNotATaskClass for loading a JSON "type" key that is not a task class or its subclass
+     * @throws BigChungusException.InvalidDateTimeFormatException for date time that doesn't follow the stated format
+     * @throws BigChungusException.StartDateTimeAfterEndDateTimeException self-explanatory in the exception name
+     * @throws BigChungusException.EndDateTimeBeforeStartDateTimeException self-explanatory in the exception name
+     */
     public List<Task> Load() throws
             IOException
             , BigChungusException.JsonTypeKeyNotATaskClass
@@ -66,21 +86,21 @@ public class FileStorage implements IStorable {
             JSONObject jo = new JSONObject(jsonString);
             String taskType = jo.getString("type");
             Hashtable<String,String> fields = new Hashtable<>();
-            fields.put(SyntaxUtil.description, jo.getString(SyntaxUtil.description));
-            fields.put(SyntaxUtil.isDone, jo.getString(SyntaxUtil.isDone));
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxUtil.dateTimeFormat);
+            fields.put(SyntaxKeyword.description, jo.getString(SyntaxKeyword.description));
+            fields.put(SyntaxKeyword.isDone, jo.getString(SyntaxKeyword.isDone));
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxKeyword.dateTimeFormat);
             if(taskType.equals("todo")){
                 tasks.add(new Todo(fields));
                 //gson.fromJson(attrib, Todo.class);
             }
             else if(taskType.equals("deadline")){
-                fields.put(SyntaxUtil.endDateTimeKeyword, jo.getString(SyntaxUtil.endDateTimeKeyword));
+                fields.put(SyntaxKeyword.endDateTimeKeyword, jo.getString(SyntaxKeyword.endDateTimeKeyword));
                 tasks.add(new Deadline(fields, dtf));
                 //t = gson.fromJson(attrib, Deadline.class);
             }
             else if(taskType.equals("event")){
-                fields.put(SyntaxUtil.startDateTimeKeyword, jo.getString(SyntaxUtil.startDateTimeKeyword));
-                fields.put(SyntaxUtil.endDateTimeKeyword, jo.getString(SyntaxUtil.endDateTimeKeyword));
+                fields.put(SyntaxKeyword.startDateTimeKeyword, jo.getString(SyntaxKeyword.startDateTimeKeyword));
+                fields.put(SyntaxKeyword.endDateTimeKeyword, jo.getString(SyntaxKeyword.endDateTimeKeyword));
                 tasks.add(new Event(fields, dtf));
             }
             else{

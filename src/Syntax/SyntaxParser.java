@@ -2,17 +2,26 @@ package Syntax;
 
 import Action.MarkAction;
 import CustomException.BigChungusException;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 
+/**
+ * parses the input syntax to a hashtable to be used by the ActionManager
+ */
 public class SyntaxParser {
 
+    /**
+     *
+     * @param input input from the user
+     * @return hashtable containing the keywords mapped to the value
+     * @throws BigChungusException.InvalidTodoSyntaxException
+     * @throws BigChungusException.InvalidDeadlineSyntaxException
+     * @throws BigChungusException.InvalidEventSyntaxException
+     * @throws BigChungusException.InvalidActionException
+     * @throws BigChungusException.InvalidMarkOrDeleteSyntaxException
+     */
     public static Hashtable<String, String> Parse(String input) throws
             BigChungusException.InvalidTodoSyntaxException
             , BigChungusException.InvalidDeadlineSyntaxException
@@ -38,7 +47,7 @@ public class SyntaxParser {
         else if(action.equals("todo")){
             try {
                 String desc = String.join(" ", tokens.subList(1, tokens.size()));
-                fields.put(SyntaxUtil.description, desc);
+                fields.put(SyntaxKeyword.description, desc);
             }
             catch (IndexOutOfBoundsException e){
                 throw new BigChungusException.InvalidTodoSyntaxException();
@@ -47,11 +56,11 @@ public class SyntaxParser {
         else if(action.equals("deadline")){
             String edt = "";
             try {
-                int edtIndex = tokens.lastIndexOf(SyntaxUtil.endDateTimeKeyword);
+                int edtIndex = tokens.lastIndexOf(SyntaxKeyword.endDateTimeKeyword);
                 String desc = String.join(" ", tokens.subList(1, edtIndex));
                 edt = String.join(" ", tokens.subList(edtIndex + 1, tokens.size()));
-                fields.put(SyntaxUtil.description, desc);
-                fields.put(SyntaxUtil.endDateTimeKeyword, edt);
+                fields.put(SyntaxKeyword.description, desc);
+                fields.put(SyntaxKeyword.endDateTimeKeyword, edt);
             }
             catch (IllegalArgumentException | IndexOutOfBoundsException e){
                 throw new BigChungusException.InvalidDeadlineSyntaxException();
@@ -62,14 +71,14 @@ public class SyntaxParser {
             String sdt = "";
             String edt = "";
             try {
-                int sdtIndex = tokens.lastIndexOf(SyntaxUtil.startDateTimeKeyword);
-                int edtIndex = tokens.lastIndexOf(SyntaxUtil.endDateTimeKeyword);
+                int sdtIndex = tokens.lastIndexOf(SyntaxKeyword.startDateTimeKeyword);
+                int edtIndex = tokens.lastIndexOf(SyntaxKeyword.endDateTimeKeyword);
                 String desc = String.join(" ", tokens.subList(1, sdtIndex));
                 sdt = String.join(" ", tokens.subList(sdtIndex + 1, edtIndex));
                 edt = String.join(" ", tokens.subList(edtIndex + 1, tokens.size()));
-                fields.put(SyntaxUtil.description, desc);
-                fields.put(SyntaxUtil.startDateTimeKeyword, sdt);
-                fields.put(SyntaxUtil.endDateTimeKeyword, edt);
+                fields.put(SyntaxKeyword.description, desc);
+                fields.put(SyntaxKeyword.startDateTimeKeyword, sdt);
+                fields.put(SyntaxKeyword.endDateTimeKeyword, edt);
             }
             catch (IllegalArgumentException | IndexOutOfBoundsException e){
                 throw new BigChungusException.InvalidEventSyntaxException();

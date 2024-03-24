@@ -12,7 +12,7 @@ public class MarkAction implements IExecutable {
     public MarkAction(){
     }
 
-    public void execute(Hashtable<String, String> fields, List<Task> tasks) throws BigChungusException.InvalidIndexException {
+    public void execute(Hashtable<String, String> fields, List<Task> tasks) throws BigChungusException.InvalidTaskIndexException {
         try {
             int index = Integer.parseInt(fields.get(MarkAction.numKey));
             Task task = tasks.get(index - 1);
@@ -20,7 +20,7 @@ public class MarkAction implements IExecutable {
             System.out.printf("task %d done: %s%n", index, task.print());
         }
         catch (IndexOutOfBoundsException e){
-            throw new BigChungusException.InvalidIndexException();
+            throw new BigChungusException.InvalidTaskIndexException();
         }
     }
 

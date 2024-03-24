@@ -10,7 +10,7 @@ public class UnmarkAction implements IExecutable {
     public UnmarkAction(){
 
     }
-    public void execute(Hashtable<String, String> fields, List<Task> tasks) throws BigChungusException.InvalidIndexException {
+    public void execute(Hashtable<String, String> fields, List<Task> tasks) throws BigChungusException.InvalidTaskIndexException {
         try {
             int index = Integer.parseInt(fields.get("num"));
             Task task = tasks.get(index - 1);
@@ -19,7 +19,7 @@ public class UnmarkAction implements IExecutable {
         }
 
         catch (IndexOutOfBoundsException e){
-            throw new BigChungusException.InvalidIndexException();
+            throw new BigChungusException.InvalidTaskIndexException();
         }
     }
 }

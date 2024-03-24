@@ -5,8 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Hashtable;
 
-import Syntax.SyntaxChecker;
-import Syntax.SyntaxUtil;
+import Syntax.SyntaxKeyword;
 import CustomException.BigChungusException;
 
 public class Event extends TaskDateTime {
@@ -17,8 +16,8 @@ public class Event extends TaskDateTime {
             , BigChungusException.StartDateTimeAfterEndDateTimeException
             , BigChungusException.EndDateTimeBeforeStartDateTimeException {
         super(fields);
-        this.setStartDateTime(fields.get(SyntaxUtil.startDateTimeKeyword), dtf);
-        this.setEndDateTime(fields.get(SyntaxUtil.endDateTimeKeyword), dtf);
+        this.setStartDateTime(fields.get(SyntaxKeyword.startDateTimeKeyword), dtf);
+        this.setEndDateTime(fields.get(SyntaxKeyword.endDateTimeKeyword), dtf);
     }
 
     public String print(DateTimeFormatter dtf){

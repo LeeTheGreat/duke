@@ -8,8 +8,18 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * A class that is responsible for handling the user input and executing the required code
+ */
 public class UI {
     public UI(){}
+
+    /**
+     *
+     * @param storage A storage class that implements IStorable
+     * @param tasks list of tasks
+     * @param actionManager ActionManager to create the action object to handle the input
+     */
 
     public void Start(IStorable storage, List<Task> tasks, ActionManager actionManager) {
         try {

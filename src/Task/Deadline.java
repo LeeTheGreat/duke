@@ -1,7 +1,7 @@
 package Task;
 
 import CustomException.BigChungusException;
-import Syntax.SyntaxUtil;
+import Syntax.SyntaxKeyword;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,11 +14,7 @@ public class Deadline extends TaskDateTime {
             BigChungusException.InvalidDateTimeFormatException
     {
         super(fields);
-        this.setEndDateTime(fields.get(SyntaxUtil.endDateTimeKeyword), dtf);
-    }
-    public String print(DateTimeFormatter dtf){
-        String info = String.format("end %s", this.getEndDateTime().format(dtf));
-        return String.format("[D]%s (%s)", super.print(), info);
+        this.setEndDateTime(fields.get(SyntaxKeyword.endDateTimeKeyword), dtf);
     }
 
     public String print(){

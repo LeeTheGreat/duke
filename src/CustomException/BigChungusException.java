@@ -1,17 +1,17 @@
 package CustomException;
 
-import Syntax.SyntaxUtil;
+import Syntax.SyntaxKeyword;
 
 public class BigChungusException extends Exception {
     public static class InvalidEventSyntaxException extends Exception{
         public InvalidEventSyntaxException(){
-            super(String.format("invalid event syntax. usage example: event <desc> /sdt <%s> /edt <%s>", SyntaxUtil.dateTimeFormat, SyntaxUtil.dateTimeFormat));
+            super(String.format("invalid event syntax. usage example: event <desc> /sdt <%s> /edt <%s>", SyntaxKeyword.dateTimeFormat, SyntaxKeyword.dateTimeFormat));
         }
     }
 
     public static class InvalidDeadlineSyntaxException extends Exception{
         public InvalidDeadlineSyntaxException(){
-            super(String.format("invalid deadline syntax. usage example: deadline <desc> /edt <%s>", SyntaxUtil.dateTimeFormat));
+            super(String.format("invalid deadline syntax. usage example: deadline <desc> /edt <%s>", SyntaxKeyword.dateTimeFormat));
         }
     }
 
@@ -37,15 +37,16 @@ public class BigChungusException extends Exception {
             super("invalid list syntax. usage example: list");
         }
     }
+
     public static class JsonTypeKeyNotATaskClass extends Exception{
         public JsonTypeKeyNotATaskClass(String input){
-            super(String.format("value of Json \"Type\" key is not a Task class or its subclass: %s", input));
+            super(String.format("value of JSON \"Type\" key is not a Task class or its subclass: %s", input));
         }
     }
 
-    public static class InvalidIndexException extends Exception{
-        public InvalidIndexException(){
-            super("invalid mark/unmark index. Number must be in the numbered list");
+    public static class InvalidTaskIndexException extends Exception{
+        public InvalidTaskIndexException(){
+            super("invalid task index. Number must be in the numbered list");
         }
     }
 

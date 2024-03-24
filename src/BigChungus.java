@@ -5,6 +5,8 @@ import Storage.FileStorage;
 import Task.*;
 import Action.*;
 
+import javax.swing.*;
+
 public class BigChungus {
     public static void main(String[] args) {
         String logo = """
@@ -37,7 +39,7 @@ public class BigChungus {
         try {
             UI ui = new UI();
             ActionManager actionManager = new ActionManager();
-            List<Task> tasks = new ArrayList<>();
+            List<Task> tasks;
             FileStorage storage = new FileStorage();
             tasks = storage.Load();
             ui.Start(storage, tasks, actionManager);
