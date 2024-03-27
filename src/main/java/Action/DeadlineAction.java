@@ -1,12 +1,12 @@
-package Action;
+package main.java.Action;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Hashtable;
 import java.util.List;
 
-import Syntax.SyntaxKeyword;
-import Task.*;
-import CustomException.BigChungusException;
+import main.java.Syntax.SyntaxKeyword;
+import main.java.Task.*;
+import main.java.CustomException.BigChungusException;
 
 public class DeadlineAction implements IExecutable {
 

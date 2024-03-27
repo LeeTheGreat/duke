@@ -1,13 +1,13 @@
-package Action;
+package main.java.Action;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Hashtable;
 import java.util.List;
 
-import Syntax.SyntaxKeyword;
+import main.java.Syntax.SyntaxKeyword;
 
-import CustomException.BigChungusException;
-import Task.*;
+import main.java.CustomException.BigChungusException;
+import main.java.Task.*;
 
 public class EventAction implements IExecutable {
 

@@ -1,9 +1,9 @@
 /**
  *
  */
-package Storage;
+package main.java.Storage;
 
-import Syntax.SyntaxKeyword;
+import main.java.Syntax.SyntaxKeyword;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -11,8 +11,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import Task.*;
-import CustomException.BigChungusException;
+import main.java.Task.*;
+import main.java.CustomException.BigChungusException;
 
 /**
  * FileStorage is a class to provide saving and loading of the tasks from and to a text file in JSON format
@@ -65,7 +65,7 @@ public class FileStorage implements IStorable {
 
     /**
      * Load the saved tasks from the file in the data folder of the program directory
-     * @return List<Task></Task>
+     * @return List<main.java.Task></main.java.Task>
      * @throws IOException for reading from the save file
      * @throws BigChungusException.JsonTypeKeyNotATaskClass for loading a JSON "type" key that is not a task class or its subclass
      * @throws BigChungusException.InvalidDateTimeFormatException for date time that doesn't follow the stated format

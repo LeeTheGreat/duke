@@ -1,7 +1,7 @@
-package Action;
+package main.java.Action;
 
-import Task.Task;
-import Storage.*;
+import main.java.Task.Task;
+import main.java.Storage.*;
 
 import java.io.IOException;
 import java.util.Hashtable;

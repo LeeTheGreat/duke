@@ -1,7 +1,7 @@
-package Task;
+package main.java.Task;
 
-import CustomException.BigChungusException;
-import Syntax.SyntaxKeyword;
+import main.java.CustomException.BigChungusException;
+import main.java.Syntax.SyntaxKeyword;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

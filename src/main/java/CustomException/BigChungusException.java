@@ -1,6 +1,6 @@
-package CustomException;
+package main.java.CustomException;
 
-import Syntax.SyntaxKeyword;
+import main.java.Syntax.SyntaxKeyword;
 
 public class BigChungusException extends Exception {
     public static class InvalidEventSyntaxException extends Exception{
@@ -40,7 +40,7 @@ public class BigChungusException extends Exception {
 
     public static class JsonTypeKeyNotATaskClass extends Exception{
         public JsonTypeKeyNotATaskClass(String input){
-            super(String.format("value of JSON \"Type\" key is not a Task class or its subclass: %s", input));
+            super(String.format("value of JSON \"Type\" key is not a main.java.Task class or its subclass: %s", input));
         }
     }
 

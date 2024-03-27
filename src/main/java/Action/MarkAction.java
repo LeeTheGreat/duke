@@ -1,10 +1,10 @@
-package Action;
+package main.java.Action;
 
 import java.util.Hashtable;
 import java.util.List;
 
-import CustomException.BigChungusException;
-import Task.*;
+import main.java.CustomException.BigChungusException;
+import main.java.Task.*;
 
 public class MarkAction implements IExecutable {
 

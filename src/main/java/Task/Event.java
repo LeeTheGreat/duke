@@ -1,12 +1,12 @@
-package Task;
+package main.java.Task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Hashtable;
 
-import Syntax.SyntaxKeyword;
-import CustomException.BigChungusException;
+import main.java.Syntax.SyntaxKeyword;
+import main.java.CustomException.BigChungusException;
 
 public class Event extends TaskDateTime {
     private LocalDateTime startDateTime;

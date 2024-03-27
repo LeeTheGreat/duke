@@ -1,4 +1,4 @@
-package Task;
+package main.java.Task;
 
 import java.util.Hashtable;
 

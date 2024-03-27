@@ -1,6 +1,6 @@
-package Storage;
+package main.java.Storage;
 
-import Task.Task;
+import main.java.Task.Task;
 
 import java.util.List;
 

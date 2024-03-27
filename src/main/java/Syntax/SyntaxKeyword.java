@@ -1,4 +1,4 @@
-package Syntax;
+package main.java.Syntax;
 
 /**
  * Provides a common keyword string

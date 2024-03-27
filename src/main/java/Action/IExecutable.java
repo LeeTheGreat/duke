@@ -1,8 +1,8 @@
-package Action;
+package main.java.Action;
 
 import java.util.Hashtable;
 import java.util.List;
-import Task.*;
+import main.java.Task.*;
 
 public interface IExecutable {
     //private Hashtable<String,String> fields;

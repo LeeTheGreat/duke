@@ -1,6 +1,6 @@
-package Task;
+package main.java.Task;
 
-import Syntax.SyntaxKeyword;
+import main.java.Syntax.SyntaxKeyword;
 
 import java.util.Hashtable;
 

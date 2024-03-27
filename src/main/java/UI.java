@@ -1,9 +1,10 @@
-import Action.ActionManager;
-import Storage.IStorable;
-import Syntax.SyntaxParser;
-import Task.*;
+package main.java;
 
-import java.util.ArrayList;
+import main.java.Action.ActionManager;
+import main.java.Storage.IStorable;
+import main.java.Syntax.SyntaxParser;
+import main.java.Task.*;
+
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Scanner;
@@ -23,7 +24,7 @@ public class UI {
 
     public void Start(IStorable storage, List<Task> tasks, ActionManager actionManager) {
         try {
-            System.out.println("Hello. I'm BigChungus, your task bot");
+            System.out.println("Hello. I'm main.java.BigChungus, your task bot");
             Scanner in = new Scanner(System.in);
             while (true) {
                 try {

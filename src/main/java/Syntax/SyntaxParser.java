@@ -1,7 +1,7 @@
-package Syntax;
+package main.java.Syntax;
 
-import Action.MarkAction;
-import CustomException.BigChungusException;
+import main.java.Action.MarkAction;
+import main.java.CustomException.BigChungusException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;

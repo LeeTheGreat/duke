@@ -1,8 +1,10 @@
+package main.java;
+
 import java.util.List;
 
-import Storage.FileStorage;
-import Task.*;
-import Action.*;
+import main.java.Storage.FileStorage;
+import main.java.Task.*;
+import main.java.Action.*;
 
 public class BigChungus {
     public static void main(String[] args) {
