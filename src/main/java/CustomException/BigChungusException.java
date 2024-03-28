@@ -2,7 +2,8 @@ package main.java.CustomException;
 
 import main.java.Syntax.SyntaxKeyword;
 
-public class BigChungusException extends Exception {
+public class BigChungusException {
+
     public static class InvalidEventSyntaxException extends Exception{
         public InvalidEventSyntaxException(){
             super(String.format("invalid event syntax. usage example: event <desc> /sdt <%s> /edt <%s>", SyntaxKeyword.dateTimeFormat, SyntaxKeyword.dateTimeFormat));

@@ -19,9 +19,9 @@ public class TodoTest {
         String isDone = "false";
         fields.put(SyntaxKeyword.description, desc);
         fields.put(SyntaxKeyword.isDone, isDone);
-        Todo todo = new Todo(fields);
-        assertEquals(desc, todo.getDescription());
-        assertFalse(todo.getDone());
+        Todo task = new Todo(fields);
+        assertEquals(desc, task.getDescription());
+        assertFalse(task.getDone());
     }
 
     @Test
