@@ -25,12 +25,7 @@ public class ActionManager {
      * @throws BigChungusException.EndDateTimeBeforeStartDateTimeException self-explanatory
      * @throws IOException for file save
      */
-    public void executeAction(Hashtable<String, String> fields, List<Task> tasks) throws
-            BigChungusException.InvalidTaskIndexException
-            , BigChungusException.InvalidDateTimeFormatException
-            , BigChungusException.StartDateTimeAfterEndDateTimeException
-            , BigChungusException.EndDateTimeBeforeStartDateTimeException
-            , IOException {
+    public void executeAction(Hashtable<String, String> fields, List<Task> tasks) throws Exception {
         String action = fields.get("action");
         if (action.equals("list")) {
             ListAction act = new ListAction();
@@ -55,6 +50,9 @@ public class ActionManager {
             act.execute(fields, tasks);
         } else if (action.equals("save")) {
             SaveAction act = new SaveAction();
+            act.execute(fields, tasks);
+        } else if (action.equals("find")){
+            FindAction act = new FindAction();
             act.execute(fields, tasks);
         }
     }

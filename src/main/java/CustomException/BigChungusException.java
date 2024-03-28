@@ -27,15 +27,15 @@ public class BigChungusException {
             super("invalid mark/unmark syntax. usage example: <mark | unmark | delete> <num>");
         }
     }
+
+    public static class InvalidFindSyntaxException extends Exception{
+        public InvalidFindSyntaxException(){
+            super("invalid find syntax. usage example: find <search terms>");
+        }
+    }
     public static class InvalidActionException extends Exception {
         public InvalidActionException() {
             super("action keyword not found. available actions: <list | mark | ummark | todo | deadline | event | delete | save >");
-        }
-    }
-
-    public static class InvalidListSyntaxException extends Exception{
-        public InvalidListSyntaxException(){
-            super("invalid list syntax. usage example: list");
         }
     }
 

@@ -7,7 +7,7 @@ plugins {
 sourceSets.main.java.srcDirs = ['src']
 
 application {
-    mainClass.set("main.BigChungus")
+    mainClass.set("main.java.BigChungus")
 }
 
 dependencies{

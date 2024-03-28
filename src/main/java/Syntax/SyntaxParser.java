@@ -21,6 +21,7 @@ public class SyntaxParser {
      * @throws BigChungusException.InvalidEventSyntaxException
      * @throws BigChungusException.InvalidActionException
      * @throws BigChungusException.InvalidMarkOrDeleteSyntaxException
+     * @throws BigChungusException.InvalidFindSyntaxException
      */
     public static Hashtable<String, String> Parse(String input) throws
             BigChungusException.InvalidTodoSyntaxException
@@ -28,7 +29,7 @@ public class SyntaxParser {
             , BigChungusException.InvalidEventSyntaxException
             , BigChungusException.InvalidActionException
             , BigChungusException.InvalidMarkOrDeleteSyntaxException
-    {
+            , BigChungusException.InvalidFindSyntaxException {
         List<String> tokens = new ArrayList<String>(Arrays.asList(input.split(" ")));
         Hashtable<String,String> fields = new Hashtable<>();
         String action = tokens.get(0);
@@ -85,6 +86,15 @@ public class SyntaxParser {
             }
         }
         else if(action.equals("save")){
+        }
+        else if(action.equals("find")){
+            try {
+                String term = String.join(" ", tokens.subList(1, tokens.size()));
+                fields.put(SyntaxKeyword.find, term);
+            }
+            catch (IllegalArgumentException | IndexOutOfBoundsException e){
+                throw new BigChungusException.InvalidFindSyntaxException();
+            }
         }
         else{
             throw new BigChungusException.InvalidActionException();

@@ -44,5 +44,4 @@ public abstract class Task {
     public void setDescription(String description) {
         this.description = description;
     }
-
 }
