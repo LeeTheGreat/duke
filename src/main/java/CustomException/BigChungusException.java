@@ -22,9 +22,15 @@ public class BigChungusException {
         }
     }
 
-    public static class InvalidMarkOrDeleteSyntaxException extends Exception{
-        public InvalidMarkOrDeleteSyntaxException(){
-            super("invalid mark/unmark syntax. usage example: <mark | unmark | delete> <num>");
+    public static class InvalidMarkSyntaxException extends Exception{
+        public InvalidMarkSyntaxException(){
+            super("invalid mark/unmark syntax. usage example: <mark | unmark> <num>");
+        }
+    }
+
+    public static class InvalidDeleteSyntaxException extends Exception{
+        public InvalidDeleteSyntaxException(){
+            super("invalid mark/unmark syntax. usage example: delete <num>");
         }
     }
 
@@ -35,7 +41,7 @@ public class BigChungusException {
     }
     public static class InvalidActionException extends Exception {
         public InvalidActionException() {
-            super("action keyword not found. available actions: <list | mark | ummark | todo | deadline | event | delete | save >");
+            super("action keyword not found. available actions: <list | mark | ummark | todo | deadline | event | delete | save>");
         }
     }
 

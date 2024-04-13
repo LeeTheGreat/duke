@@ -20,29 +20,41 @@ public class SyntaxParser {
      * @throws BigChungusException.InvalidDeadlineSyntaxException
      * @throws BigChungusException.InvalidEventSyntaxException
      * @throws BigChungusException.InvalidActionException
-     * @throws BigChungusException.InvalidMarkOrDeleteSyntaxException
+     * @throws BigChungusException.InvalidDeleteSyntaxException
      * @throws BigChungusException.InvalidFindSyntaxException
+     * @throws BigChungusException.InvalidMarkSyntaxException
+     * @throws BigChungusException.InvalidDeleteSyntaxException
      */
     public static Hashtable<String, String> Parse(String input) throws
             BigChungusException.InvalidTodoSyntaxException
             , BigChungusException.InvalidDeadlineSyntaxException
             , BigChungusException.InvalidEventSyntaxException
             , BigChungusException.InvalidActionException
-            , BigChungusException.InvalidMarkOrDeleteSyntaxException
-            , BigChungusException.InvalidFindSyntaxException {
+            , BigChungusException.InvalidFindSyntaxException
+            , BigChungusException.InvalidMarkSyntaxException
+            , BigChungusException.InvalidDeleteSyntaxException {
         List<String> tokens = new ArrayList<String>(Arrays.asList(input.split(" ")));
         Hashtable<String,String> fields = new Hashtable<>();
         String action = tokens.get(0);
         fields.put("action", action);
         if(action.equals("list")){
         }
-        else if(action.equals("unmark") || action.equals("mark") || action.equals("delete")){
+        else if(action.equals("unmark") || action.equals("mark")){
             try {
                 String num = tokens.get(1);
                 fields.put(MarkAction.numKey, num);
             }
             catch (IndexOutOfBoundsException e){
-                throw new BigChungusException.InvalidMarkOrDeleteSyntaxException();
+                throw new BigChungusException.InvalidMarkSyntaxException();
+            }
+        }
+        else if(action.equals("delete")){
+            try {
+                String num = tokens.get(1);
+                fields.put(MarkAction.numKey, num);
+            }
+            catch (IndexOutOfBoundsException e){
+                throw new BigChungusException.InvalidDeleteSyntaxException();
             }
         }
         else if(action.equals("todo")){

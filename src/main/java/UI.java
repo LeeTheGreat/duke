@@ -13,6 +13,7 @@ import java.util.Scanner;
  * A class that is responsible for handling the user input and executing the required code
  */
 public class UI {
+
     public UI(){}
 
     /**
@@ -24,7 +25,7 @@ public class UI {
 
     public void Start(IStorable storage, List<Task> tasks, ActionManager actionManager) {
         try {
-            System.out.println("Hello. I'm main.java.BigChungus, your task bot");
+            System.out.println("Hello. I'm BigChungus, your task bot");
             Scanner in = new Scanner(System.in);
             while (true) {
                 try {
