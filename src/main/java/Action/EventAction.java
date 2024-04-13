@@ -15,8 +15,7 @@ public class EventAction implements IExecutable {
     }
 
     public void execute(Hashtable<String, String> fields, List<Task> tasks) throws
-            BigChungusException.InvalidDateTimeFormatException
-            , BigChungusException.StartDateTimeAfterEndDateTimeException
+            BigChungusException.StartDateTimeAfterEndDateTimeException
             , BigChungusException.EndDateTimeBeforeStartDateTimeException
     {
         //event e1 /sdt 10-01-2024 1122 /edt 22-05-2024 1123

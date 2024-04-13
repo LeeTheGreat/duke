@@ -57,12 +57,6 @@ public class BigChungusException {
         }
     }
 
-    public static class InvalidDateTimeFormatException extends Exception{
-        public InvalidDateTimeFormatException(String input){
-            super(String.format("invalid date time format: %s. Expected format is dd-MM-yyyy HHmm", input));
-        }
-    }
-
     public static class EndDateTimeBeforeStartDateTimeException extends Exception{
         public EndDateTimeBeforeStartDateTimeException(String input){
             super(String.format("invalid end date time: %s. Must be after start date time", input));

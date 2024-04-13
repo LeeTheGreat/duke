@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -13,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DeadlineTest {
     @Test
-    public void createDeadlineIsDoneFalse() throws BigChungusException.InvalidDateTimeFormatException {
+    public void createDeadlineIsDoneFalse() {
         Hashtable<String,String> fields = new Hashtable<>();
         ArrayList<Task> tasks = new ArrayList<>();
         String desc = "createDeadlineIsDoneFalse";
@@ -30,7 +31,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void createDeadlineIsDoneTrue() throws BigChungusException.InvalidDateTimeFormatException {
+    public void createDeadlineIsDoneTrue() {
         Hashtable<String,String> fields = new Hashtable<>();
         ArrayList<Task> tasks = new ArrayList<>();
         String desc = "createDeadlineIsDoneFalse";
@@ -61,7 +62,7 @@ public class DeadlineTest {
             Deadline task = new Deadline(fields, dtf);
         }
         catch (Exception e){
-            assertInstanceOf(BigChungusException.InvalidDateTimeFormatException.class, e);
+            assertInstanceOf(DateTimeParseException.class, e);
         }
     }
 }

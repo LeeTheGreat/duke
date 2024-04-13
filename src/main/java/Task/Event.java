@@ -12,8 +12,7 @@ public class Event extends TaskDateTime {
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     public Event(Hashtable<String,String> fields, DateTimeFormatter dtf) throws
-            BigChungusException.InvalidDateTimeFormatException
-            , BigChungusException.StartDateTimeAfterEndDateTimeException
+            BigChungusException.StartDateTimeAfterEndDateTimeException
             , BigChungusException.EndDateTimeBeforeStartDateTimeException {
         super(fields);
         this.setStartDateTime(fields.get(SyntaxKeyword.startDateTimeKeyword), dtf);
@@ -31,8 +30,7 @@ public class Event extends TaskDateTime {
     }
 
     public void setStartDateTime(String input, DateTimeFormatter dtf) throws
-            BigChungusException.InvalidDateTimeFormatException
-            , BigChungusException.StartDateTimeAfterEndDateTimeException
+            BigChungusException.StartDateTimeAfterEndDateTimeException
             , BigChungusException.EndDateTimeBeforeStartDateTimeException
     {
         try {
@@ -41,7 +39,7 @@ public class Event extends TaskDateTime {
             super.checkStartDateBeforeEndDate(sdt, this.getEndDateTime(), dtf);
             this.startDateTime = sdt;
         } catch (DateTimeParseException e) {
-            throw new BigChungusException.InvalidDateTimeFormatException(input);
+            throw new DateTimeParseException(e.getMessage(), input, 0, e);
         }
     }
 
@@ -50,8 +48,7 @@ public class Event extends TaskDateTime {
     }
 
     public void setEndDateTime(String input, DateTimeFormatter dtf) throws
-            BigChungusException.InvalidDateTimeFormatException
-            , BigChungusException.StartDateTimeAfterEndDateTimeException
+            BigChungusException.StartDateTimeAfterEndDateTimeException
             , BigChungusException.EndDateTimeBeforeStartDateTimeException
     {
         try {
@@ -60,7 +57,7 @@ public class Event extends TaskDateTime {
             super.checkStartDateBeforeEndDate(this.getStartDateTime(), edt, dtf);
             this.endDateTime = edt;
         } catch (DateTimeParseException e) {
-            throw new BigChungusException.InvalidDateTimeFormatException(input);
+            throw new DateTimeParseException(e.getMessage(), input, 0, e);
         }
     }
 }

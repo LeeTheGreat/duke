@@ -68,18 +68,20 @@ public class FileStorage implements IStorable {
      * @return List<main.java.Task></main.java.Task>
      * @throws IOException for reading from the save file
      * @throws BigChungusException.JsonTypeKeyNotATaskClass for loading a JSON "type" key that is not a task class or its subclass
-     * @throws BigChungusException.InvalidDateTimeFormatException for date time that doesn't follow the stated format
      * @throws BigChungusException.StartDateTimeAfterEndDateTimeException self-explanatory in the exception name
      * @throws BigChungusException.EndDateTimeBeforeStartDateTimeException self-explanatory in the exception name
      */
     public List<Task> Load() throws
             IOException
             , BigChungusException.JsonTypeKeyNotATaskClass
-            , BigChungusException.InvalidDateTimeFormatException
             , BigChungusException.StartDateTimeAfterEndDateTimeException
             , BigChungusException.EndDateTimeBeforeStartDateTimeException
     {
         List<Task> tasks = new ArrayList<Task>();
+        File f = new File(this.fullPath);
+        if(!f.exists() && !f.isDirectory()) {
+            return tasks;
+        }
         Scanner scanner = new Scanner(new File(this.fullPath));
         while (scanner.hasNextLine()) {
             String jsonString = scanner.nextLine();
