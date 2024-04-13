@@ -16,7 +16,7 @@ public class DeadlineAction implements IExecutable {
 
     @Override
     public void execute(Hashtable<String, String> fields, List<Task> tasks) throws BigChungusException.InvalidDateTimeFormatException {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxKeyword.dateTimeFormat);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxKeyword.inputDateTimeFormat);
         Deadline deadline = new Deadline(fields, dtf);
         tasks.add(deadline);
         System.out.println("added deadline: " + deadline.print());

@@ -39,7 +39,7 @@ public class FileStorage implements IStorable {
         }
 
         FileWriter writer = new FileWriter(this.fullPath);
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxKeyword.dateTimeFormat);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxKeyword.inputDateTimeFormat);
         for(Task task : tasks) {
             JSONObject taskJson = new JSONObject();
             taskJson.put(SyntaxKeyword.isDone, String.valueOf(task.getDone()));
@@ -88,7 +88,7 @@ public class FileStorage implements IStorable {
             Hashtable<String,String> fields = new Hashtable<>();
             fields.put(SyntaxKeyword.description, jo.getString(SyntaxKeyword.description));
             fields.put(SyntaxKeyword.isDone, jo.getString(SyntaxKeyword.isDone));
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxKeyword.dateTimeFormat);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxKeyword.inputDateTimeFormat);
             if(taskType.equals("todo")){
                 tasks.add(new Todo(fields));
                 //gson.fromJson(attrib, Todo.class);

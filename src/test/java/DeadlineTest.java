@@ -19,7 +19,7 @@ public class DeadlineTest {
         String desc = "createDeadlineIsDoneFalse";
         String isDone = "false";
         String dateTime = "01-06-2024 1122";
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxKeyword.dateTimeFormat);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxKeyword.inputDateTimeFormat);
         fields.put(SyntaxKeyword.description, desc);
         fields.put(SyntaxKeyword.isDone, isDone);
         fields.put(SyntaxKeyword.endDateTimeKeyword, dateTime);
@@ -36,7 +36,7 @@ public class DeadlineTest {
         String desc = "createDeadlineIsDoneFalse";
         String isDone = "true";
         String dateTime = "01-06-2024 1122";
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxKeyword.dateTimeFormat);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxKeyword.inputDateTimeFormat);
         fields.put(SyntaxKeyword.description, desc);
         fields.put(SyntaxKeyword.isDone, isDone);
         fields.put(SyntaxKeyword.endDateTimeKeyword, dateTime);
@@ -53,7 +53,7 @@ public class DeadlineTest {
         String desc = "createDeadlineIsDoneFalse";
         String isDone = "true";
         String dateTime = "01-06-2024 1177";
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxKeyword.dateTimeFormat);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxKeyword.inputDateTimeFormat);
         fields.put(SyntaxKeyword.description, desc);
         fields.put(SyntaxKeyword.isDone, isDone);
         fields.put(SyntaxKeyword.endDateTimeKeyword, dateTime);

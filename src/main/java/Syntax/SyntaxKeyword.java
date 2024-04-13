@@ -6,7 +6,8 @@ package main.java.Syntax;
 public class SyntaxKeyword {
     public static String startDateTimeKeyword = "/sdt";
     public static String endDateTimeKeyword = "/edt";
-    public static String dateTimeFormat = "dd-MM-yyyy HHmm";
+    public static String inputDateTimeFormat = "dd-MM-yyyy HHmm";
+    public static String printDateTimeFormat = "dd-MM-yyyy h:mm a";
 
     public static String description = "desc";
     public static String isDone = "isDone";

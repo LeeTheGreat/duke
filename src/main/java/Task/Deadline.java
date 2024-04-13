@@ -6,6 +6,7 @@ import main.java.Syntax.SyntaxKeyword;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
 import java.util.Hashtable;
 
 public class Deadline extends TaskDateTime {
@@ -18,7 +19,9 @@ public class Deadline extends TaskDateTime {
     }
 
     public String print(){
-        String info = String.format("end %s", this.getEndDateTime());
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxKeyword.printDateTimeFormat);
+        String info = String.format("end %s", this.getEndDateTime().format(dtf));
+
         return String.format("[D]%s (%s)", super.print(), info);
     }
 

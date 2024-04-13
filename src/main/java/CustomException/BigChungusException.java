@@ -6,13 +6,13 @@ public class BigChungusException {
 
     public static class InvalidEventSyntaxException extends Exception{
         public InvalidEventSyntaxException(){
-            super(String.format("invalid event syntax. usage example: event <desc> /sdt <%s> /edt <%s>", SyntaxKeyword.dateTimeFormat, SyntaxKeyword.dateTimeFormat));
+            super(String.format("invalid event syntax. usage example: event <desc> /sdt <%s> /edt <%s>", SyntaxKeyword.inputDateTimeFormat, SyntaxKeyword.inputDateTimeFormat));
         }
     }
 
     public static class InvalidDeadlineSyntaxException extends Exception{
         public InvalidDeadlineSyntaxException(){
-            super(String.format("invalid deadline syntax. usage example: deadline <desc> /edt <%s>", SyntaxKeyword.dateTimeFormat));
+            super(String.format("invalid deadline syntax. usage example: deadline <desc> /edt <%s>", SyntaxKeyword.inputDateTimeFormat));
         }
     }
 

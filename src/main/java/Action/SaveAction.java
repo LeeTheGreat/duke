@@ -10,7 +10,6 @@ import java.util.List;
 public class SaveAction implements IExecutable{
     public SaveAction(){}
 
-
     @Override
     public void execute(Hashtable<String, String> fields, List<Task> tasks) throws IOException {
         FileStorage fileStorage = new FileStorage();

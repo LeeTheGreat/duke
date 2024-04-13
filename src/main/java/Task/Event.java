@@ -20,13 +20,9 @@ public class Event extends TaskDateTime {
         this.setEndDateTime(fields.get(SyntaxKeyword.endDateTimeKeyword), dtf);
     }
 
-    public String print(DateTimeFormatter dtf){
-        String info = String.format("start %s, end %s", this.getStartDateTime().format(dtf), this.getEndDateTime().format(dtf));
-        return String.format("[E]%s (%s)", super.print(), info);
-    }
-
     public String print(){
-        String info = String.format("start %s, end %s", this.getStartDateTime(), this.getEndDateTime());
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxKeyword.printDateTimeFormat);
+        String info = String.format("start %s, end %s", this.getStartDateTime().format(dtf), this.getEndDateTime().format(dtf));
         return String.format("[E]%s (%s)", super.print(), info);
     }
 
