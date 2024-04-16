@@ -30,7 +30,7 @@ public class UI {
             while (true) {
                 try {
                     String input = in.nextLine();
-                    input = input.trim().toLowerCase();
+                    //input = input.trim().toLowerCase();
                     if (input.isEmpty()) {
                         continue;
                     }
@@ -39,7 +39,7 @@ public class UI {
                         break;
                     }
                     else {
-                        Hashtable<String, String> fields = SyntaxParser.Parse(input);
+                        Hashtable<String, String> fields = SyntaxParser.parse(input);
                         actionManager.executeAction(fields, tasks);
                     }
                 } catch (Exception e) {

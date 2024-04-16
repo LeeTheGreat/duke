@@ -28,13 +28,12 @@ public class Deadline extends TaskDateTime {
         return endDateTime;
     }
 
-    public void setEndDateTime(String input, DateTimeFormatter dtf) throws
-            DateTimeParseException
+    public void setEndDateTime(String input, DateTimeFormatter dtf)
     {
         try {
             this.endDateTime = LocalDateTime.parse(input, dtf);
         } catch (DateTimeParseException e) {
-            throw new DateTimeParseException(e.getMessage(), input, 0, e);
+            throw new DateTimeParseException(String.format("invalid date time format: %s", input), input, 0, e);
         }
     }
 }

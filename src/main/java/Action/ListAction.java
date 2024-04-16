@@ -11,7 +11,7 @@ public class ListAction implements IExecutable {
     }
     @Override
     public void execute(Hashtable<String, String> fields, List<Task> tasks){
-        System.out.println("listing tasks");
+        System.out.println("Tasks");
         int taskNum = 0;
         for(Task t : tasks){
             taskNum++;

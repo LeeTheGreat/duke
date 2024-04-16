@@ -11,7 +11,7 @@ public class SyntaxKeyword {
 
     public static String description = "desc";
     public static String isDone = "isDone";
-
+    public static String num = "num";
     public static String find = "find";
 
 }

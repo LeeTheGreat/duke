@@ -53,6 +53,9 @@ public class ActionManager {
         } else if (action.equals("find")){
             FindAction act = new FindAction();
             act.execute(fields, tasks);
+        } else if (action.equals("reschedule")){
+            RescheduleAction act = new RescheduleAction();
+            act.execute(fields, tasks);
         }
     }
 }

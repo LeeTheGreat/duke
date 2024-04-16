@@ -14,9 +14,7 @@ public class EventAction implements IExecutable {
     public EventAction() {
     }
 
-    public void execute(Hashtable<String, String> fields, List<Task> tasks) throws
-            BigChungusException.StartDateTimeAfterEndDateTimeException
-            , BigChungusException.EndDateTimeBeforeStartDateTimeException
+    public void execute(Hashtable<String, String> fields, List<Task> tasks) throws BigChungusException.IllogicalDateTimeException
     {
         //event e1 /sdt 10-01-2024 1122 /edt 22-05-2024 1123
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxKeyword.inputDateTimeFormat);

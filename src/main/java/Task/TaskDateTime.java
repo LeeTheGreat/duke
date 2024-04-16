@@ -15,21 +15,12 @@ public abstract class TaskDateTime extends Task{
         super(fields);
     }
 
-    protected void checkEndDateAfterStartDate(LocalDateTime sdt, LocalDateTime edt, DateTimeFormatter dtf) throws BigChungusException.EndDateTimeBeforeStartDateTimeException{
-        if(sdt == null || edt == null){
-            return;
-        }
-        if(edt.isBefore(sdt)){
-            throw new BigChungusException.EndDateTimeBeforeStartDateTimeException(edt.format(dtf));
-        }
-    }
-
-    protected void checkStartDateBeforeEndDate(LocalDateTime sdt, LocalDateTime edt, DateTimeFormatter dtf) throws BigChungusException.StartDateTimeAfterEndDateTimeException{
+    protected void checkLogicalDateTime(LocalDateTime sdt, LocalDateTime edt, DateTimeFormatter dtf) throws BigChungusException.IllogicalDateTimeException{
         if(sdt == null || edt == null){
             return;
         }
         if(sdt.isAfter(edt)){
-            throw new BigChungusException.StartDateTimeAfterEndDateTimeException(sdt.format(dtf));
+            throw new BigChungusException.IllogicalDateTimeException();
         }
     }
 }

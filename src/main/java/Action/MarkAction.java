@@ -4,17 +4,16 @@ import java.util.Hashtable;
 import java.util.List;
 
 import main.java.CustomException.BigChungusException;
+import main.java.Syntax.SyntaxKeyword;
 import main.java.Task.*;
 
 public class MarkAction implements IExecutable {
-
-    public static String numKey = "num";
     public MarkAction(){
     }
 
     public void execute(Hashtable<String, String> fields, List<Task> tasks) throws BigChungusException.InvalidTaskIndexException {
         try {
-            int index = Integer.parseInt(fields.get(MarkAction.numKey));
+            int index = Integer.parseInt(fields.get(SyntaxKeyword.num));
             Task task = tasks.get(index - 1);
             task.setDone(true);
             System.out.printf("task %d done: %s%n", index, task.print());

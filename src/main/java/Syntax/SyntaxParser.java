@@ -1,11 +1,8 @@
 package main.java.Syntax;
 
-import main.java.Action.MarkAction;
 import main.java.CustomException.BigChungusException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Hashtable;
-import java.util.List;
+
+import java.util.*;
 
 /**
  * parses the input syntax to a hashtable to be used by the ActionManager
@@ -24,15 +21,17 @@ public class SyntaxParser {
      * @throws BigChungusException.InvalidFindSyntaxException
      * @throws BigChungusException.InvalidMarkSyntaxException
      * @throws BigChungusException.InvalidDeleteSyntaxException
+     * @throws BigChungusException.InvalidRescheduleSyntaxException
      */
-    public static Hashtable<String, String> Parse(String input) throws
+    public static Hashtable<String, String> parse(String input) throws
             BigChungusException.InvalidTodoSyntaxException
             , BigChungusException.InvalidDeadlineSyntaxException
             , BigChungusException.InvalidEventSyntaxException
             , BigChungusException.InvalidActionException
             , BigChungusException.InvalidFindSyntaxException
             , BigChungusException.InvalidMarkSyntaxException
-            , BigChungusException.InvalidDeleteSyntaxException {
+            , BigChungusException.InvalidDeleteSyntaxException
+            , BigChungusException.InvalidRescheduleSyntaxException {
         List<String> tokens = new ArrayList<String>(Arrays.asList(input.split(" ")));
         Hashtable<String,String> fields = new Hashtable<>();
         String action = tokens.get(0);
@@ -42,7 +41,7 @@ public class SyntaxParser {
         else if(action.equals("unmark") || action.equals("mark")){
             try {
                 String num = tokens.get(1);
-                fields.put(MarkAction.numKey, num);
+                fields.put(SyntaxKeyword.num, num);
             }
             catch (IndexOutOfBoundsException e){
                 throw new BigChungusException.InvalidMarkSyntaxException();
@@ -51,7 +50,7 @@ public class SyntaxParser {
         else if(action.equals("delete")){
             try {
                 String num = tokens.get(1);
-                fields.put(MarkAction.numKey, num);
+                fields.put(SyntaxKeyword.num, num);
             }
             catch (IndexOutOfBoundsException e){
                 throw new BigChungusException.InvalidDeleteSyntaxException();
@@ -60,6 +59,9 @@ public class SyntaxParser {
         else if(action.equals("todo")){
             try {
                 String desc = String.join(" ", tokens.subList(1, tokens.size()));
+                if(desc.isEmpty()){
+                    throw new BigChungusException.InvalidTodoSyntaxException();
+                }
                 fields.put(SyntaxKeyword.description, desc);
             }
             catch (IndexOutOfBoundsException e){
@@ -71,6 +73,9 @@ public class SyntaxParser {
             try {
                 int edtIndex = tokens.lastIndexOf(SyntaxKeyword.endDateTimeKeyword);
                 String desc = String.join(" ", tokens.subList(1, edtIndex));
+                if(desc.isEmpty()){
+                    throw new BigChungusException.InvalidDeadlineSyntaxException();
+                }
                 edt = String.join(" ", tokens.subList(edtIndex + 1, tokens.size()));
                 fields.put(SyntaxKeyword.description, desc);
                 fields.put(SyntaxKeyword.endDateTimeKeyword, edt);
@@ -87,6 +92,9 @@ public class SyntaxParser {
                 int sdtIndex = tokens.lastIndexOf(SyntaxKeyword.startDateTimeKeyword);
                 int edtIndex = tokens.lastIndexOf(SyntaxKeyword.endDateTimeKeyword);
                 String desc = String.join(" ", tokens.subList(1, sdtIndex));
+                if(desc.isEmpty()){
+                    throw new BigChungusException.InvalidEventSyntaxException();
+                }
                 sdt = String.join(" ", tokens.subList(sdtIndex + 1, edtIndex));
                 edt = String.join(" ", tokens.subList(edtIndex + 1, tokens.size()));
                 fields.put(SyntaxKeyword.description, desc);
@@ -108,9 +116,42 @@ public class SyntaxParser {
                 throw new BigChungusException.InvalidFindSyntaxException();
             }
         }
+        else if(action.equals("reschedule")){
+            try{
+                fields.put(SyntaxKeyword.num, tokens.get(1));
+                List<Integer> keywordsIndex = new ArrayList<>();
+                keywordsIndex.add(tokens.lastIndexOf(SyntaxKeyword.startDateTimeKeyword));
+                keywordsIndex.add(tokens.lastIndexOf(SyntaxKeyword.endDateTimeKeyword));
+                keywordsIndex.sort(Collections.reverseOrder());
+                if(keywordsIndex.get(0) == -1){
+                    throw new BigChungusException.InvalidRescheduleSyntaxException();
+                }
+                int endIndex = tokens.size();
+                for(Integer i : keywordsIndex){
+                    if(i == -1){
+                        break;
+                    }
+                    String keyword = tokens.get(i);
+                    String term = String.join(" ", tokens.subList(i + 1, endIndex));
+                    fields.put(keyword, term);
+                    endIndex = i;
+                }
+            }
+            catch (IllegalArgumentException | IndexOutOfBoundsException e){
+                throw new BigChungusException.InvalidRescheduleSyntaxException();
+            }
+        }
         else{
             throw new BigChungusException.InvalidActionException();
         }
         return fields;
+    }
+
+    private List<Integer> sortKeywords(List<String> tokens){
+        List<Integer> keywordsIndex = new ArrayList<>();
+        keywordsIndex.add(tokens.lastIndexOf(SyntaxKeyword.startDateTimeKeyword));
+        keywordsIndex.add(tokens.lastIndexOf(SyntaxKeyword.endDateTimeKeyword));
+        keywordsIndex.sort(Collections.reverseOrder());
+        return keywordsIndex;
     }
 }
