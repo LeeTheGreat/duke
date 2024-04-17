@@ -146,12 +146,4 @@ public class SyntaxParser {
         }
         return fields;
     }
-
-    private List<Integer> sortKeywords(List<String> tokens){
-        List<Integer> keywordsIndex = new ArrayList<>();
-        keywordsIndex.add(tokens.lastIndexOf(SyntaxKeyword.startDateTimeKeyword));
-        keywordsIndex.add(tokens.lastIndexOf(SyntaxKeyword.endDateTimeKeyword));
-        keywordsIndex.sort(Collections.reverseOrder());
-        return keywordsIndex;
-    }
 }
