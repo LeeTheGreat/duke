@@ -5,14 +5,14 @@ import main.java.CustomException.BigChungusException;
 import java.util.*;
 
 /**
- * parses the input syntax to a hashtable to be used by the ActionManager
+ * parses the input syntax to a hashtable  * to be used by the ActionManager to create the corresponding action objects
  */
 public class SyntaxParser {
 
     /**
      *
      * @param input input from the user
-     * @return hashtable containing the keywords mapped to the value
+     * @return hashtable containing the keywords mapped to the parsed value
      * @throws BigChungusException.InvalidTodoSyntaxException
      * @throws BigChungusException.InvalidDeadlineSyntaxException
      * @throws BigChungusException.InvalidEventSyntaxException
@@ -35,7 +35,7 @@ public class SyntaxParser {
         List<String> tokens = new ArrayList<String>(Arrays.asList(input.split(" ")));
         Hashtable<String,String> fields = new Hashtable<>();
         String action = tokens.get(0);
-        fields.put("action", action);
+        fields.put(SyntaxKeyword.action, action);
         if(action.equals("list")){
         }
         else if(action.equals("unmark") || action.equals("mark")){

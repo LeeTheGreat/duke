@@ -1,6 +1,8 @@
 package main.java.Action;
 
 import main.java.CustomException.BigChungusException;
+import main.java.Syntax.SyntaxKeyword;
+import main.java.Syntax.SyntaxParser;
 import main.java.Task.*;
 
 import java.io.IOException;
@@ -8,24 +10,23 @@ import java.util.Hashtable;
 import java.util.List;
 
 /**
- * A class to create the corresponding action object to handle the input
- * It uses the "action" key from the fields hashtable to determine the action object to create.
+ * ActionManager is to expose a single class that handles all the actions.
+ * It uses the "action" key from the fields parameter to determine the action object to create.
+ * Then, it creates the corresponding action object, and call the execute function of the action object.
  */
+
 public class ActionManager {
 
     public ActionManager(){}
 
     /**
      *
-     * @param fields hashtable after parsing the input
+     * @param fields hashtable of parsed fields
      * @param tasks list of tasks
-     * @throws BigChungusException.InvalidTaskIndexException for input that acts on the index but index is invalid
-     * @throws BigChungusException.StartDateTimeAfterEndDateTimeException self-explanatory
-     * @throws BigChungusException.EndDateTimeBeforeStartDateTimeException self-explanatory
-     * @throws IOException for file save
+     * @throws Exception
      */
     public void executeAction(Hashtable<String, String> fields, List<Task> tasks) throws Exception {
-        String action = fields.get("action");
+        String action = fields.get(SyntaxKeyword.action);
         if (action.equals("list")) {
             ListAction act = new ListAction();
             act.execute(fields, tasks);
