@@ -1,6 +1,0 @@
-{"type":"todo","isDone":"false","desc":"todo_1"}
-{"type":"todo","isDone":"false","desc":"todo_2"}
-{"/edt":"12-11-2024 1111","/sdt":"11-11-2024 1111","type":"event","isDone":"false","desc":"event_1"}
-{"/edt":"27-03-2024 2342","/sdt":"25-03-2024 2211","type":"event","isDone":"false","desc":"event_2"}
-{"/edt":"12-12-2024 2244","type":"deadline","isDone":"false","desc":"deadline_1"}
-{"/edt":"01-01-2024 1123","type":"deadline","isDone":"false","desc":"deadline_2"}

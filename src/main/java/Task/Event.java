@@ -9,47 +9,80 @@ import main.java.Syntax.SyntaxKeyword;
 import main.java.CustomException.BigChungusException;
 
 public class Event extends TaskDateTime {
+
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     public Event(Hashtable<String,String> fields, DateTimeFormatter dtf) throws BigChungusException.IllogicalDateTimeException {
         super(fields);
-        this.setStartDateTime(fields.get(SyntaxKeyword.startDateTimeKeyword), dtf);
-        this.setEndDateTime(fields.get(SyntaxKeyword.endDateTimeKeyword), dtf);
+        assert(fields.containsKey(SyntaxKeyword.startDateTimeKeyword));
+        assert(fields.containsKey(SyntaxKeyword.endDateTimeKeyword));
+        this.setDateTime(fields.get(SyntaxKeyword.startDateTimeKeyword), fields.get(SyntaxKeyword.endDateTimeKeyword), dtf);
     }
 
     public String print(){
+        assert(this.getStartDateTime() != null);
+        assert(this.getEndDateTime() != null);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxKeyword.printDateTimeFormat);
         String info = String.format("start %s, end %s", this.getStartDateTime().format(dtf), this.getEndDateTime().format(dtf));
         return String.format("[E]%s (%s)", super.print(), info);
     }
 
-    public LocalDateTime getStartDateTime() {
-        return startDateTime;
+    public String toString(){
+        assert(this.getStartDateTime() != null);
+        assert(this.getEndDateTime() != null);
+        String[] info = {"event", this.getDescription(), String.valueOf(this.getDone()), String.valueOf(this.getStartDateTime()), String.valueOf(this.getEndDateTime())};
+        return String.join(";;", info);
     }
 
-    public void setStartDateTime(String input, DateTimeFormatter dtf) throws BigChungusException.IllogicalDateTimeException
+    public LocalDateTime getStartDateTime() {
+        return this.startDateTime;
+    }
+
+    private void setStartDateTime(String input, DateTimeFormatter dtf) throws BigChungusException.IllogicalDateTimeException
     {
         try {
-            LocalDateTime sdt = LocalDateTime.parse(input, dtf);
-            super.checkLogicalDateTime(sdt, this.getEndDateTime(), dtf);
-            this.startDateTime = sdt;
+            this.startDateTime = LocalDateTime.parse(input, dtf);
         } catch (DateTimeParseException e) {
-            throw new DateTimeParseException(String.format("invalid date time format: %s", input), input, 0, e);
+            throw new DateTimeParseException(String.format("invalid date time %s. Expected format %s", input, SyntaxKeyword.inputDateTimeFormat), input, 0, e);
         }
     }
 
     public LocalDateTime getEndDateTime() {
-        return endDateTime;
+        return this.endDateTime;
     }
 
-    public void setEndDateTime(String input, DateTimeFormatter dtf) throws BigChungusException.IllogicalDateTimeException
+    private void setEndDateTime(String input, DateTimeFormatter dtf) throws BigChungusException.IllogicalDateTimeException
     {
         try {
-            LocalDateTime edt = LocalDateTime.parse(input, dtf);
-            super.checkLogicalDateTime(this.getStartDateTime(), edt, dtf);
-            this.endDateTime = edt;
+            this.endDateTime = LocalDateTime.parse(input, dtf);
         } catch (DateTimeParseException e) {
-            throw new DateTimeParseException(String.format("invalid date time format: %s", input), input, 0, e);
+            throw new DateTimeParseException(String.format("invalid date time %s. Expected format %s", input, SyntaxKeyword.inputDateTimeFormat), input, 0, e);
+        }
+    }
+
+    /**
+     *
+     * @param startDateTime start date time string. Leave it as a blank string if not setting it
+     * @param endDateTime end date time string. Leave it as a blank string if not setting it
+     * @param dtf date time formatter
+     * @throws BigChungusException.IllogicalDateTimeException exception if start date time is after end date time
+     */
+
+    public void setDateTime(String startDateTime, String endDateTime, DateTimeFormatter dtf) throws BigChungusException.IllogicalDateTimeException {
+        if(startDateTime == null){
+            startDateTime = "";
+        }
+        if(endDateTime == null){
+            endDateTime = "";
+        }
+        if(!startDateTime.isBlank()){
+            this.setStartDateTime(startDateTime, dtf);
+        }
+        if(!endDateTime.isBlank()){
+            this.setEndDateTime(endDateTime, dtf);
+        }
+        if (this.getStartDateTime().isAfter(this.getEndDateTime())) {
+            throw new BigChungusException.IllogicalDateTimeException();
         }
     }
 }

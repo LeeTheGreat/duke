@@ -29,56 +29,54 @@ public class RescheduleAction implements IExecutable {
             throw new BigChungusException.InvalidTaskIndexException();
         }
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxKeyword.inputDateTimeFormat);
-        boolean hasKeyword = false;
-        if(task instanceof Deadline) {
-            Deadline t = (Deadline)task;
+        if(task instanceof Deadline t) {
             if(fields.containsKey(SyntaxKeyword.startDateTimeKeyword)) {
                 throw new BigChungusException.InvalidRescheduleSyntaxException();
             }
             if(fields.containsKey(SyntaxKeyword.endDateTimeKeyword)) {
                 t.setEndDateTime(fields.get(SyntaxKeyword.endDateTimeKeyword), dtf);
-                hasKeyword = true;
-            }
-            if(!hasKeyword){
-                throw new BigChungusException.InvalidRescheduleSyntaxException();
             }
         }
-        if(task instanceof Event){
-            Event t = (Event)task;
-            LocalDateTime sdt = t.getStartDateTime();
-            LocalDateTime edt = t.getEndDateTime();
+        if(task instanceof Event t){
+            t.setDateTime(fields.get(SyntaxKeyword.startDateTimeKeyword), fields.get(SyntaxKeyword.endDateTimeKeyword), dtf);
+            /*
             if(fields.containsKey(SyntaxKeyword.startDateTimeKeyword)) {
                 String time = fields.get(SyntaxKeyword.startDateTimeKeyword);
                 try {
                     sdt = LocalDateTime.parse(time, dtf);
+                    fields.put(SyntaxKeyword.startDateTimeKeyword, time);
                 }
                 catch (DateTimeParseException e){
-                    throw new DateTimeParseException(String.format("invalid date time: format %s", time), time, 0, e);
+                    throw new DateTimeParseException(String.format("invalid date time %s. Expecting format %s", time, SyntaxKeyword.inputDateTimeFormat), time, 0, e);
                 }
-                hasKeyword = true;
+            }
+            else{
+                fields.put(SyntaxKeyword.startDateTimeKeyword, sdt.format(dtf));
             }
             if(fields.containsKey(SyntaxKeyword.endDateTimeKeyword)) {
                 String time = fields.get(SyntaxKeyword.endDateTimeKeyword);
                 try {
                     edt = LocalDateTime.parse(time, dtf);
+
                 }
                 catch (DateTimeParseException e){
-                    throw new DateTimeParseException(String.format("invalid date time: format %s", time), time, 0, e);
+                    throw new DateTimeParseException(String.format("invalid date time %s. Expecting %s", time, SyntaxKeyword.inputDateTimeFormat), time, 0, e);
                 }
-                hasKeyword = true;
             }
-            if(sdt.isAfter(edt) || sdt.equals(edt)){
-                throw new BigChungusException.IllogicalDateTimeException();
+            else{
+                fields.put(SyntaxKeyword.endDateTimeKeyword, edt.format(dtf));
             }
-            if(!hasKeyword){
-                throw new BigChungusException.InvalidRescheduleSyntaxException();
-            }
-            if(fields.containsKey(SyntaxKeyword.startDateTimeKeyword)) {
-                t.setStartDateTime(fields.get(SyntaxKeyword.startDateTimeKeyword), dtf);
-            }
-            if(fields.containsKey(SyntaxKeyword.endDateTimeKeyword)) {
-                t.setEndDateTime(fields.get(SyntaxKeyword.endDateTimeKeyword), dtf);
-            }
+
+            // create new event as setting existing dateTime will trigger the isBefore check which may cause issues for certain condition
+            Event tNew = new Event(fields, dtf);
+            tNew.setDescription(t.getDescription());
+            tNew.setDone(t.getDone());
+            t.setStartDateTime(LocalDateTime.MIN.format(dtf), dtf);
+            t.setEndDateTime(LocalDateTime.MIN.format(dtf), dtf);
+            t.setStartDateTime(sdt.format(dtf), dtf);
+            t.setEndDateTime(edt.format(dtf), dtf);
+            */
+            tasks.set(index - 1, t);
         }
         System.out.printf("rescheduled task: %s%n", task.print());
     }

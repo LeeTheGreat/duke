@@ -19,9 +19,9 @@ public class ScheduleActionEventTest {
 
     private final String oldSdt = "06-06-2024 1122";
     private final String oldEdt = "07-07-2024 1234";
-    private void createTasks(List<Task> tasks) throws Exception{
+    private void createTasks(List<Task> tasks, String description) throws Exception{
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxKeyword.inputDateTimeFormat);
-        String command = String.format("event e1_test /sdt %s /edt %s", oldSdt, oldEdt);
+        String command = String.format("event %s /sdt %s /edt %s", description, oldSdt, oldEdt);
         Hashtable<String,String> fields = SyntaxParser.parse(command);
         EventAction act = new EventAction();
         act.execute(fields, tasks);
@@ -30,7 +30,7 @@ public class ScheduleActionEventTest {
     @Test
     public void scheduleLogicalDateTime() throws Exception{
         List<Task> tasks = new ArrayList<>();
-        createTasks(tasks);
+        createTasks(tasks, "scheduleLogicalDateTime");
         String sdt = "01-02-2024 1234";
         String edt = "03-02-2024 1234";
 
@@ -49,7 +49,7 @@ public class ScheduleActionEventTest {
     @Test
     public void scheduleLogicalDateTimeNewSdt() throws Exception{
         List<Task> tasks = new ArrayList<>();
-        createTasks(tasks);
+        createTasks(tasks, "scheduleLogicalDateTimeNewSdt");
         String sdt = "01-02-2024 1234";
         String command = String.format("reschedule 1 /sdt %s", sdt);
         Hashtable<String, String> fields = SyntaxParser.parse(command);
@@ -65,7 +65,7 @@ public class ScheduleActionEventTest {
     @Test
     public void scheduleLogicalDateTimeNewEdt() throws Exception{
         List<Task> tasks = new ArrayList<>();
-        createTasks(tasks);
+        createTasks(tasks, "scheduleLogicalDateTimeNewEdt");
         String edt = "01-07-2024 1234";
         String command = String.format("reschedule 1 /edt %s", edt);
         Hashtable<String, String> fields = SyntaxParser.parse(command);
@@ -82,11 +82,10 @@ public class ScheduleActionEventTest {
     @Test
     public void scheduleIllogicalDateTimeNewSdtAfterNewEdt() throws Exception {
         List<Task> tasks = new ArrayList<>();
-        createTasks(tasks);
+        createTasks(tasks, "scheduleIllogicalDateTimeNewSdtAfterNewEdt");
         String sdt = "01-02-2024 1234";
         String edt = "01-01-2024 1234";
         String command = String.format("reschedule 1 /sdt %s /edt %s", sdt, edt);
-        System.out.println(command);
         Hashtable<String, String> fields = SyntaxParser.parse(command);
         try {
             RescheduleAction act = new RescheduleAction();
@@ -100,10 +99,9 @@ public class ScheduleActionEventTest {
     @Test
     public void scheduleIllogicalDateTimeNewSdtEqualNewEdt() throws Exception {
         List<Task> tasks = new ArrayList<>();
-        createTasks(tasks);
+        createTasks(tasks, "scheduleIllogicalDateTimeNewSdtEqualNewEdt");
         String sdt = "01-02-2024 1234";
         String command = String.format("reschedule 1 /sdt %s /edt %s", sdt, sdt);
-        System.out.println(command);
         Hashtable<String, String> fields = SyntaxParser.parse(command);
         try {
             RescheduleAction act = new RescheduleAction();
@@ -117,10 +115,9 @@ public class ScheduleActionEventTest {
     @Test
     public void scheduleIllogicalDateTimeNewSdtAfterOldEdt() throws Exception {
         List<Task> tasks = new ArrayList<>();
-        createTasks(tasks);
+        createTasks(tasks, "scheduleIllogicalDateTimeNewSdtAfterOldEdt");
         String sdt = "07-08-2024 1234";
         String command = String.format("reschedule 1 /sdt %s", sdt);
-        System.out.println(command);
         Hashtable<String, String> fields = SyntaxParser.parse(command);
         try {
             RescheduleAction act = new RescheduleAction();
@@ -134,10 +131,9 @@ public class ScheduleActionEventTest {
     @Test
     public void scheduleIllogicalDateTimeOldSdtAfterNewEdt() throws Exception {
         List<Task> tasks = new ArrayList<>();
-        createTasks(tasks);
+        createTasks(tasks, "scheduleIllogicalDateTimeOldSdtAfterNewEdt");
         String edt = "07-05-2024 1234";
         String command = String.format("reschedule 1 /edt %s", edt);
-        System.out.println(command);
         Hashtable<String, String> fields = SyntaxParser.parse(command);
         try {
             RescheduleAction act = new RescheduleAction();
@@ -149,12 +145,33 @@ public class ScheduleActionEventTest {
     }
 
     @Test
+    public void scheduleLogicalDateTimeSdtThenEdt() throws Exception {
+        List<Task> tasks = new ArrayList<>();
+        createTasks(tasks, "scheduleLogicalDateTimeSdtThenEdt");
+        String sdt = "07-05-2024 1234";
+        String command = String.format("reschedule 1 /sdt %s", sdt);
+        Hashtable<String, String> fields = SyntaxParser.parse(command);
+        RescheduleAction act = new RescheduleAction();
+        act.execute(fields, tasks);
+        String edt = "08-05-2024 1234";
+        command = String.format("reschedule 1 /edt %s", edt);
+        fields = SyntaxParser.parse(command);
+        act = new RescheduleAction();
+        act.execute(fields, tasks);
+        Event e = (Event)tasks.get(0);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxKeyword.inputDateTimeFormat);
+        LocalDateTime correctSdt = LocalDateTime.parse(sdt, dtf);
+        LocalDateTime correctEdt = LocalDateTime.parse(edt, dtf);
+        assert(e.getStartDateTime().equals(correctSdt));
+        assert(e.getEndDateTime().equals(correctEdt));
+    }
+
+    @Test
     public void invalidIndex() throws Exception {
         List<Task> tasks = new ArrayList<>();
-        createTasks(tasks);
+        createTasks(tasks, "invalidIndex");
         String edt = "07-05-2024 1234";
         String command = String.format("reschedule 2 /edt %s", edt);
-        System.out.println(command);
         Hashtable<String, String> fields = SyntaxParser.parse(command);
         try {
             RescheduleAction act = new RescheduleAction();
