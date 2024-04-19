@@ -55,7 +55,7 @@ public class BigChungusException {
 
     public static class InvalidActionException extends Exception {
         public InvalidActionException() {
-            super("action keyword not found. available actions: <list | mark | unmark | todo | deadline | event | delete | save>");
+            super("action keyword not found. available actions: <list | mark | unmark | todo | deadline | event | delete | save | reschedule>");
         }
     }
 
