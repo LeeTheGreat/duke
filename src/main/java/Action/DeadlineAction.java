@@ -17,8 +17,11 @@ public class DeadlineAction implements IExecutable {
     @Override
     public void execute(Hashtable<String, String> fields, List<Task> tasks) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxKeyword.inputDateTimeFormat);
-        Deadline deadline = new Deadline(fields, dtf);
-        tasks.add(deadline);
-        System.out.println("added deadline: " + deadline.print());
+        Deadline task = new Deadline(fields, dtf);
+        if(tasks.contains(task)){
+            throw new IllegalArgumentException("unable to add deadline. Deadline already exists");
+        }
+        tasks.add(task);
+        System.out.println("added deadline: " + task.print());
     }
 }

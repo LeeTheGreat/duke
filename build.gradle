@@ -2,9 +2,11 @@
 plugins {
     id 'java'
     id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 sourceSets.main.java.srcDirs = ['src']
+mainClassName = 'main.java.BigChungus'
 
 application {
     mainClass.set("main.java.BigChungus")

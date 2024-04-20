@@ -18,8 +18,11 @@ public class EventAction implements IExecutable {
     {
         //event e1 /sdt 10-01-2024 1122 /edt 22-05-2024 1123
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(SyntaxKeyword.inputDateTimeFormat);
-        Event event = new Event(fields, dtf);
-        tasks.add(event);
-        System.out.println("added event: " + event.print());
+        Event task = new Event(fields, dtf);
+        if(tasks.contains(task)){
+            throw new IllegalArgumentException("unable to add event. Event already exists");
+        }
+        tasks.add(task);
+        System.out.println("added event: " + task.print());
     }
 }

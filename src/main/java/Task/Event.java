@@ -30,7 +30,7 @@ public class Event extends TaskDateTime {
     public String toString(){
         assert(this.getStartDateTime() != null);
         assert(this.getEndDateTime() != null);
-        String[] info = {"event", this.getDescription(), String.valueOf(this.getDone()), String.valueOf(this.getStartDateTime()), String.valueOf(this.getEndDateTime())};
+        String[] info = {this.getClass().getName(), this.getDescription(), String.valueOf(this.getDone()), String.valueOf(this.getStartDateTime()), String.valueOf(this.getEndDateTime())};
         return String.join(";;", info);
     }
 
@@ -38,7 +38,7 @@ public class Event extends TaskDateTime {
         return this.startDateTime;
     }
 
-    private void setStartDateTime(String input, DateTimeFormatter dtf) throws BigChungusException.IllogicalDateTimeException
+    private void setStartDateTime(String input, DateTimeFormatter dtf)
     {
         try {
             this.startDateTime = LocalDateTime.parse(input, dtf);
@@ -51,7 +51,7 @@ public class Event extends TaskDateTime {
         return this.endDateTime;
     }
 
-    private void setEndDateTime(String input, DateTimeFormatter dtf) throws BigChungusException.IllogicalDateTimeException
+    private void setEndDateTime(String input, DateTimeFormatter dtf)
     {
         try {
             this.endDateTime = LocalDateTime.parse(input, dtf);
@@ -84,5 +84,24 @@ public class Event extends TaskDateTime {
         if (this.getStartDateTime().isAfter(this.getEndDateTime())) {
             throw new BigChungusException.IllogicalDateTimeException();
         }
+    }
+
+    protected String toStringForCompare(){
+        assert(this.getStartDateTime() != null);
+        assert(this.getEndDateTime() != null);
+        String[] info = {this.getClass().getName(), this.getDescription(), String.valueOf(this.getStartDateTime()), String.valueOf(this.getEndDateTime())};
+        return String.join(";;", info);
+    }
+    @Override
+    public int hashCode() {
+        return this.toStringForCompare().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj instanceof Event) {
+            return this.toStringForCompare().equals(((Event) obj).toStringForCompare());
+        }
+        return false;
     }
 }

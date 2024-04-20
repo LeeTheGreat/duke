@@ -24,10 +24,7 @@ public abstract class Task {
     }
 
     @Override
-    public String toString(){
-        String[] info = {"task", this.getDescription(), String.valueOf(this.getDone())};
-        return String.join(";;", info);
-    }
+    public abstract String toString();
 
     public String print() {
         String done = " ";
@@ -44,4 +41,16 @@ public abstract class Task {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    /**
+     * this function is for comparison functions such as hashCode() or equals(). It ignores the isDone attribute.
+     * @return String of the class name and attributes except isDone.
+     */
+    protected abstract String toStringForCompare();
+
+    @Override
+    public abstract int hashCode();
+
+    @Override
+    public abstract boolean equals(Object obj);
 }

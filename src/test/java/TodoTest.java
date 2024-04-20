@@ -2,6 +2,7 @@ package main.java.Action;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -35,5 +36,20 @@ public class TodoTest {
         Todo todo = new Todo(fields);
         assertEquals(desc, todo.getDescription());
         assertTrue(todo.getDone());
+    }
+
+    @Test
+    public void equalityTest(){
+        Hashtable<String,String> fields = new Hashtable<>();
+        ArrayList<Task> tasks = new ArrayList<>();
+        String desc = "createTodoIsDoneTrue";
+        String isDone = "true";
+        fields.put(SyntaxKeyword.description, desc);
+        fields.put(SyntaxKeyword.isDone, isDone);
+        Todo todo1 = new Todo(fields);
+        Todo todo2 = new Todo(fields);
+        todo2.setDone(!todo2.getDone());
+        assertEquals(todo1, todo2);
+
     }
 }
