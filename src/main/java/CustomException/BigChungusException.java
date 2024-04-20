@@ -43,7 +43,7 @@ public class BigChungusException {
     public static class InvalidRescheduleSyntaxException extends Exception{
         public InvalidRescheduleSyntaxException(){
             super(String.format("""
-                invalid reschedule syntax.
+                invalid reschedule syntax
                 usage:
                     reschedule event: reschedule <num> <</sdt %s> | </edt %s>>
                     reschedule deadline: reschedule <num> </edt %s>>
@@ -71,21 +71,15 @@ public class BigChungusException {
         }
     }
 
-    public static class EndDateTimeBeforeStartDateTimeException extends Exception{
-        public EndDateTimeBeforeStartDateTimeException(String input){
-            super(String.format("invalid end date time: %s. Must be after start date time", input));
-        }
-    }
-
-    public static class StartDateTimeAfterEndDateTimeException extends Exception {
-        public StartDateTimeAfterEndDateTimeException(String input) {
-            super(String.format("invalid start date time: %s. Must be before end date time", input));
-        }
-    }
-
     public static class IllogicalDateTimeException extends Exception {
         public IllogicalDateTimeException() {
             super("illogical date time. Start date time must be before end date time");
+        }
+    }
+
+    public static class UnschedulableTaskException extends Exception{
+        public UnschedulableTaskException() {
+            super("Task cannot be scheduled as it doesn't contain date time setting");
         }
     }
 }
